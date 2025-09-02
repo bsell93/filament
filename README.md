@@ -1,4 +1,4 @@
-# 3D Filament Tier List Website
+# Filament Tier List Website
 
 A static reference site that organizes popular 3D printing filaments by tier, based on **Zack Freedman’s video**  
 👉 [The 3D Filament Tier List! Which Should YOU Use?](https://youtu.be/weeG9yOp3i4)
