@@ -54,9 +54,20 @@ function render(data){
 
     const badges = document.createElement('div');
     badges.className = 'badges';
-    (f.badges || []).forEach(b => badges.appendChild(makeBadge(b)));
-    if(f.enclosure) badges.appendChild(makeBadge('Prefers enclosure'));
-    if(f.hygroscopic) badges.appendChild(makeBadge('Moisture sensitive'));
+    // De-duplicate badges by normalizing labels
+    const canonical = (label) => {
+      const s = String(label).trim().toLowerCase();
+      if (/enclosure/.test(s)) return 'Prefers enclosure';
+      if (/hardened/.test(s))  return 'Requires hardened nozzle';
+      if (/moisture/.test(s))  return 'Moisture sensitive';
+      if (/aesthetic/.test(s)) return 'Aesthetic';
+      return label;
+    };
+    const badgeSet = new Set();
+    (f.badges || []).forEach(b => badgeSet.add(canonical(b)));
+    if (f.enclosure)    badgeSet.add('Prefers enclosure');
+    if (f.hygroscopic)  badgeSet.add('Moisture sensitive');
+    Array.from(badgeSet).forEach(b => badges.appendChild(makeBadge(b)));
 
     card.appendChild(name);
     card.appendChild(meta);
