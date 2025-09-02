@@ -1,0 +1,362 @@
+[
+  {
+    "name": "Carbon Fiber PLA (CFPLA)",
+    "tier": "S",
+    "temp": "200–220°C",
+    "notes": "Matte finish, low shrinkage, sharp detail.",
+    "badges": [
+      "Requires hardened nozzle"
+    ],
+    "use_cases": "Precise and aesthetic prints",
+    "enclosure": false,
+    "hygroscopic": false
+  },
+  {
+    "name": "Tough PLA",
+    "tier": "S",
+    "temp": "200–220°C",
+    "notes": "PLA blended for higher impact resistance and toughness.",
+    "badges": [],
+    "use_cases": "Light-duty functional parts",
+    "enclosure": false,
+    "hygroscopic": false
+  },
+  {
+    "name": "High-Speed PLA",
+    "tier": "S",
+    "temp": "190–210°C",
+    "notes": "Lower viscosity to enable very fast print speeds.",
+    "badges": [],
+    "use_cases": "Rapid prototyping",
+    "enclosure": false,
+    "hygroscopic": false
+  },
+  {
+    "name": "TPU (High Durometer)",
+    "tier": "S",
+    "temp": "200–230°C",
+    "notes": "Very tough and resilient.",
+    "badges": [],
+    "use_cases": "Impact-heavy parts (e.g., combat robotics)",
+    "enclosure": false,
+    "hygroscopic": false
+  },
+  {
+    "name": "PCTG",
+    "tier": "S",
+    "temp": "240–250°C",
+    "notes": "PETG variant with improved flexibility and printability; less prone to warping and moisture uptake than PETG.",
+    "badges": [],
+    "use_cases": "Durable functional parts",
+    "enclosure": false,
+    "hygroscopic": false
+  },
+  {
+    "name": "PLA",
+    "tier": "A",
+    "temp": "200–220°C",
+    "notes": "Easy, versatile; limited heat and UV resistance.",
+    "badges": [],
+    "use_cases": "General models and prototypes",
+    "enclosure": false,
+    "hygroscopic": false
+  },
+  {
+    "name": "PETG",
+    "tier": "A",
+    "temp": "240–260°C",
+    "notes": "Tougher than PLA; more heat tolerant; can warp and is moisture sensitive.",
+    "badges": [
+      "Moisture sensitive"
+    ],
+    "use_cases": "Functional prototypes",
+    "enclosure": false,
+    "hygroscopic": true
+  },
+  {
+    "name": "Carbon Fiber PETG (CF PETG)",
+    "tier": "A",
+    "temp": "250–270°C",
+    "notes": "Stiffer with reduced warping vs standard PETG.",
+    "badges": [
+      "Requires hardened nozzle"
+    ],
+    "use_cases": "Stiff functional parts",
+    "enclosure": false,
+    "hygroscopic": false
+  },
+  {
+    "name": "ASA",
+    "tier": "A",
+    "temp": "250–260°C",
+    "notes": "UV/heat resistant, matte; lower warping than ABS.",
+    "badges": [],
+    "use_cases": "Outdoor parts",
+    "enclosure": false,
+    "hygroscopic": false
+  },
+  {
+    "name": "PC PBT (Polycarbonate/PBT blend)",
+    "tier": "A",
+    "temp": "~260°C",
+    "notes": "More printable PC blend; good cold/chemical resistance.",
+    "badges": [],
+    "use_cases": "Functional parts used in cooler environments",
+    "enclosure": false,
+    "hygroscopic": false
+  },
+  {
+    "name": "Polycarbonate (PC)",
+    "tier": "A",
+    "temp": "275–300°C",
+    "notes": "Very strong; prone to warp; favors an enclosure.",
+    "badges": [
+      "Prefers enclosure"
+    ],
+    "use_cases": "High-strength applications",
+    "enclosure": true,
+    "hygroscopic": false
+  },
+  {
+    "name": "PEKK",
+    "tier": "A",
+    "temp": "300–340°C",
+    "notes": "High-performance polymer; easier than PEEK.",
+    "badges": [],
+    "use_cases": "Engineering parts needing chemical resistance",
+    "enclosure": false,
+    "hygroscopic": false
+  },
+  {
+    "name": "SEBS",
+    "tier": "A",
+    "temp": "220–230°C",
+    "notes": "Rubberlike flexible; extruder-dependent tuning.",
+    "badges": [],
+    "use_cases": "Flexible components",
+    "enclosure": false,
+    "hygroscopic": false
+  },
+  {
+    "name": "PSU (Polysulfone)",
+    "tier": "A",
+    "temp": "280–300°C",
+    "notes": "High-heat and chemical resistance; sterilizable.",
+    "badges": [],
+    "use_cases": "High-temp functional parts",
+    "enclosure": false,
+    "hygroscopic": false
+  },
+  {
+    "name": "Silk PLA",
+    "tier": "B",
+    "temp": "200–220°C",
+    "notes": "Shiny aesthetic; weaker mechanics; can clog.",
+    "badges": [
+      "Aesthetic"
+    ],
+    "use_cases": "Display pieces",
+    "enclosure": false,
+    "hygroscopic": false
+  },
+  {
+    "name": "Wood PLA",
+    "tier": "B",
+    "temp": "200–220°C",
+    "notes": "Wood-loaded for appearance; weaker; moisture-prone.",
+    "badges": [
+      "Aesthetic"
+    ],
+    "use_cases": "Decorative prints",
+    "enclosure": false,
+    "hygroscopic": true
+  },
+  {
+    "name": "Carbon Fiber PC (CF PC)",
+    "tier": "B",
+    "temp": "300–320°C",
+    "notes": "Extremely stiff; challenging; favors an enclosure and high temps.",
+    "badges": [
+      "Requires hardened nozzle",
+      "Prefers enclosure"
+    ],
+    "use_cases": "High-temp stiff parts",
+    "enclosure": true,
+    "hygroscopic": false
+  },
+  {
+    "name": "HIPS",
+    "tier": "B",
+    "temp": "220–240°C",
+    "notes": "Support material; dissolves in limonene.",
+    "badges": [],
+    "use_cases": "Soluble supports or lightweight parts",
+    "enclosure": false,
+    "hygroscopic": false
+  },
+  {
+    "name": "PET (Bottle-grade)",
+    "tier": "B",
+    "temp": "275–300°C",
+    "notes": "Stiffer than PETG; harder to print; wants enclosure.",
+    "badges": [
+      "Prefers enclosure"
+    ],
+    "use_cases": "High-stiffness parts (with capable printers)",
+    "enclosure": true,
+    "hygroscopic": false
+  },
+  {
+    "name": "PA6 Nylon",
+    "tier": "B",
+    "temp": "250–275°C",
+    "notes": "Strong/flexible but very hygroscopic; warps without chamber.",
+    "badges": [
+      "Moisture sensitive",
+      "Prefers enclosure"
+    ],
+    "use_cases": "Functional parts where toughness matters",
+    "enclosure": true,
+    "hygroscopic": true
+  },
+  {
+    "name": "Glass-Filled PP (GF PP)",
+    "tier": "B",
+    "temp": "220–240°C",
+    "notes": "Tough and weather-resistant; adhesion/warping are tricky.",
+    "badges": [],
+    "use_cases": "Outdoor/automotive style parts (with tuned setup)",
+    "enclosure": false,
+    "hygroscopic": false
+  },
+  {
+    "name": "TPU (Low Durometer)",
+    "tier": "C",
+    "temp": "200–230°C",
+    "notes": "Very soft; tends to snake/jam; not breathable for wearables.",
+    "badges": [],
+    "use_cases": "Highly flexible parts (if printer supports)",
+    "enclosure": false,
+    "hygroscopic": false
+  },
+  {
+    "name": "Polypropylene (PP)",
+    "tier": "C",
+    "temp": "220–240°C",
+    "notes": "Light and durable but notorious for warp/adhesion issues.",
+    "badges": [],
+    "use_cases": "Containers/hinges if you can tame it",
+    "enclosure": false,
+    "hygroscopic": false
+  },
+  {
+    "name": "OBC (Olefin Block Copolymer)",
+    "tier": "C",
+    "temp": "220–250°C",
+    "notes": "Aims for PP toughness + PETG versatility; still adhesion/warp problems.",
+    "badges": [],
+    "use_cases": "Tough parts if adhesion handled",
+    "enclosure": false,
+    "hygroscopic": false
+  },
+  {
+    "name": "PEEK",
+    "tier": "C",
+    "temp": "~400°C",
+    "notes": "Exceptional properties but extremely demanding and costly; needs enclosure.",
+    "badges": [
+      "Prefers enclosure"
+    ],
+    "use_cases": "High-end engineering with specialized printers",
+    "enclosure": true,
+    "hygroscopic": false
+  },
+  {
+    "name": "PPS",
+    "tier": "C",
+    "temp": "~325°C",
+    "notes": "Excellent chemical resistance; difficult and expensive.",
+    "badges": [],
+    "use_cases": "Chemical/thermal demanding parts",
+    "enclosure": false,
+    "hygroscopic": false
+  },
+  {
+    "name": "Glass-Filled Nylon (GFPA)",
+    "tier": "C",
+    "temp": "~300°C",
+    "notes": "Very durable; requires abrasion-resistant nozzles and temp control.",
+    "badges": [
+      "Requires hardened nozzle",
+      "Prefers enclosure"
+    ],
+    "use_cases": "Tough structural parts",
+    "enclosure": true,
+    "hygroscopic": false
+  },
+  {
+    "name": "PMMA (Acrylic)",
+    "tier": "C",
+    "temp": "230–250°C",
+    "notes": "Clear and pretty but brittle; poor adhesion.",
+    "badges": [
+      "Aesthetic"
+    ],
+    "use_cases": "Transparent display parts",
+    "enclosure": false,
+    "hygroscopic": false
+  },
+  {
+    "name": "Metal-Filled Composites",
+    "tier": "F",
+    "temp": "210–250°C",
+    "notes": "Costly and brittle vs PLA; aesthetic-first materials.",
+    "badges": [
+      "Aesthetic",
+      "Requires hardened nozzle"
+    ],
+    "use_cases": "One-off show pieces",
+    "enclosure": false,
+    "hygroscopic": false
+  },
+  {
+    "name": "HDPE",
+    "tier": "F",
+    "temp": "230–250°C",
+    "notes": "Extreme warping; very poor adhesion.",
+    "badges": [],
+    "use_cases": "Not generally recommended for FDM",
+    "enclosure": false,
+    "hygroscopic": false
+  },
+  {
+    "name": "POM (Acetal/Delrin)",
+    "tier": "F",
+    "temp": "220–240°C",
+    "notes": "Nearly zero bed adhesion; overheating risks toxic fumes.",
+    "badges": [],
+    "use_cases": "Not recommended for hobby FDM",
+    "enclosure": false,
+    "hygroscopic": false
+  },
+  {
+    "name": "TPI (Kapton)",
+    "tier": "F",
+    "temp": "~450°C",
+    "notes": "Requires extreme temps; impractical on hobby machines.",
+    "badges": [],
+    "use_cases": "Specialized industrial setups only",
+    "enclosure": false,
+    "hygroscopic": false
+  },
+  {
+    "name": "PVDF",
+    "tier": "F",
+    "temp": "260–280°C",
+    "notes": "Tough/chemical-resistant but hazardous decomposition risk if overheated.",
+    "badges": [],
+    "use_cases": "Niche chemical-resistance needs with capable machines",
+    "enclosure": false,
+    "hygroscopic": false
+  }
+]
