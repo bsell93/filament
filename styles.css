@@ -56,14 +56,22 @@ a{color:var(--accent)}
 .badge.hygro{border-color:#9ece6a}
 .badge.aesthetic{border-color:#e0af68}
 
-.specs-toggle{
-  background:#0f131a;border:1px solid #212838;border-radius:8px;padding:8px 12px;color:var(--text);
-  cursor:pointer;font-size:13px;margin:8px 0;transition:all 0.2s ease;
+.radar-chart-container{
+  display:flex;justify-content:center;align-items:center;margin:12px 0;padding:16px;
 }
-.specs-toggle:hover{background:#1a1f2a;border-color:#2a3347}
+
+.radar-chart{
+  width:160px;height:160px;
+}
+
+.details-button{
+  background:transparent;border:1px solid #2a3347;border-radius:6px;padding:4px 8px;color:var(--muted);
+  cursor:pointer;font-size:11px;margin:4px 0;transition:all 0.2s ease;width:100%;
+}
+.details-button:hover{background:#1a1f2a;border-color:#3a4357;color:var(--text)}
 
 .specs-content{
-  margin-top:12px;padding:12px;background:#0f131a;border:1px solid #212838;border-radius:8px;
+  margin-top:8px;padding:12px;background:#0f131a;border:1px solid #212838;border-radius:8px;
 }
 
 .specs-grid{

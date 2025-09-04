@@ -31,6 +31,167 @@ function makeBadge(label){
   return span;
 }
 
+function normalizeSpecValue(value, specType) {
+  if (typeof value !== 'string') return 0;
+  
+  const val = value.toLowerCase();
+  
+  switch (specType) {
+    case 'warping':
+      if (val.includes('extreme')) return 0;
+      if (val.includes('very high')) return 0.2;
+      if (val.includes('high')) return 0.4;
+      if (val.includes('medium')) return 0.6;
+      if (val.includes('low')) return 0.8;
+      return 0.5;
+      
+    case 'temperature_resistance':
+      // Extract temperature from strings like "60°C (glass transition)" or "250°C (continuous use)"
+      const tempMatch = val.match(/(\d+)°c/);
+      if (tempMatch) {
+        const temp = parseInt(tempMatch[1]);
+        return Math.min(temp / 400, 1); // Normalize to 0-1, max 400°C
+      }
+      return 0.5;
+      
+    case 'flexibility':
+      if (val.includes('very high') || val.includes('rubber-like')) return 1;
+      if (val.includes('high')) return 0.8;
+      if (val.includes('moderate')) return 0.6;
+      if (val.includes('low')) return 0.4;
+      if (val.includes('very low') || val.includes('stiff')) return 0.2;
+      return 0.5;
+      
+    case 'tensile_strength':
+    case 'impact_resistance':
+    case 'chemical_resistance':
+    case 'uv_resistance':
+      if (val.includes('very high')) return 1;
+      if (val.includes('high')) return 0.8;
+      if (val.includes('moderate')) return 0.6;
+      if (val.includes('low')) return 0.4;
+      if (val.includes('very low')) return 0.2;
+      return 0.5;
+      
+    case 'print_speed':
+      if (val.includes('very fast')) return 1;
+      if (val.includes('fast')) return 0.8;
+      if (val.includes('moderate')) return 0.6;
+      if (val.includes('slow')) return 0.4;
+      if (val.includes('very slow')) return 0.2;
+      return 0.5;
+      
+    case 'layer_adhesion':
+      if (val.includes('excellent')) return 1;
+      if (val.includes('good')) return 0.8;
+      if (val.includes('moderate')) return 0.6;
+      if (val.includes('poor')) return 0.4;
+      if (val.includes('very poor')) return 0.2;
+      return 0.5;
+      
+    default:
+      return 0.5;
+  }
+}
+
+function createRadarChart(specs, container) {
+  const size = 160;
+  const center = size / 2;
+  const radius = 45;
+  
+  const chartData = [
+    { key: 'warping', label: 'Warping', value: normalizeSpecValue(specs.warping, 'warping') },
+    { key: 'temperature_resistance', label: 'Temp', value: normalizeSpecValue(specs.temperature_resistance, 'temperature_resistance') },
+    { key: 'flexibility', label: 'Flex', value: normalizeSpecValue(specs.flexibility, 'flexibility') },
+    { key: 'tensile_strength', label: 'Strength', value: normalizeSpecValue(specs.tensile_strength, 'tensile_strength') },
+    { key: 'impact_resistance', label: 'Impact', value: normalizeSpecValue(specs.impact_resistance, 'impact_resistance') },
+    { key: 'print_speed', label: 'Speed', value: normalizeSpecValue(specs.print_speed, 'print_speed') }
+  ];
+  
+  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('width', size);
+  svg.setAttribute('height', size);
+  svg.setAttribute('viewBox', `0 0 ${size} ${size}`);
+  svg.className = 'radar-chart';
+  
+  // Create grid circles
+  for (let i = 1; i <= 5; i++) {
+    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('cx', center);
+    circle.setAttribute('cy', center);
+    circle.setAttribute('r', (radius * i) / 5);
+    circle.setAttribute('fill', 'none');
+    circle.setAttribute('stroke', '#2a3347');
+    circle.setAttribute('stroke-width', '0.5');
+    svg.appendChild(circle);
+  }
+  
+  // Create grid lines
+  chartData.forEach((_, index) => {
+    const angle = (index * 2 * Math.PI) / chartData.length - Math.PI / 2;
+    const x2 = center + radius * Math.cos(angle);
+    const y2 = center + radius * Math.sin(angle);
+    
+    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+    line.setAttribute('x1', center);
+    line.setAttribute('y1', center);
+    line.setAttribute('x2', x2);
+    line.setAttribute('y2', y2);
+    line.setAttribute('stroke', '#2a3347');
+    line.setAttribute('stroke-width', '0.5');
+    svg.appendChild(line);
+  });
+  
+  // Create data polygon
+  const points = chartData.map((data, index) => {
+    const angle = (index * 2 * Math.PI) / chartData.length - Math.PI / 2;
+    const x = center + radius * data.value * Math.cos(angle);
+    const y = center + radius * data.value * Math.sin(angle);
+    return `${x},${y}`;
+  }).join(' ');
+  
+  const polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+  polygon.setAttribute('points', points);
+  polygon.setAttribute('fill', 'rgba(122, 162, 247, 0.2)');
+  polygon.setAttribute('stroke', '#7aa2f7');
+  polygon.setAttribute('stroke-width', '1.5');
+  svg.appendChild(polygon);
+  
+  // Create data points
+  chartData.forEach((data, index) => {
+    const angle = (index * 2 * Math.PI) / chartData.length - Math.PI / 2;
+    const x = center + radius * data.value * Math.cos(angle);
+    const y = center + radius * data.value * Math.sin(angle);
+    
+    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('cx', x);
+    circle.setAttribute('cy', y);
+    circle.setAttribute('r', '2');
+    circle.setAttribute('fill', '#7aa2f7');
+    svg.appendChild(circle);
+  });
+  
+  // Create labels
+  chartData.forEach((data, index) => {
+    const angle = (index * 2 * Math.PI) / chartData.length - Math.PI / 2;
+    const labelRadius = radius + 25;
+    const x = center + labelRadius * Math.cos(angle);
+    const y = center + labelRadius * Math.sin(angle);
+    
+    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+    text.setAttribute('x', x);
+    text.setAttribute('y', y);
+    text.setAttribute('text-anchor', 'middle');
+    text.setAttribute('dominant-baseline', 'middle');
+    text.setAttribute('font-size', '10');
+    text.setAttribute('fill', '#a6adbb');
+    text.textContent = data.label;
+    svg.appendChild(text);
+  });
+  
+  container.appendChild(svg);
+}
+
 function render(data){
   const grid = document.getElementById('results');
   grid.innerHTML = '';
@@ -74,16 +235,22 @@ function render(data){
     card.appendChild(notes);
     card.appendChild(badges);
 
-    // Add specifications section after badges
+    // Add radar chart for specifications
     if (f.specs) {
-      const specsToggle = document.createElement('button');
-      specsToggle.className = 'specs-toggle';
-      specsToggle.textContent = 'Show Specifications';
-      specsToggle.addEventListener('click', () => {
+      const chartContainer = document.createElement('div');
+      chartContainer.className = 'radar-chart-container';
+      createRadarChart(f.specs, chartContainer);
+      card.appendChild(chartContainer);
+
+      // Add minimal details button
+      const detailsButton = document.createElement('button');
+      detailsButton.className = 'details-button';
+      detailsButton.textContent = 'Details';
+      detailsButton.addEventListener('click', () => {
         const specsContent = card.querySelector('.specs-content');
         const isVisible = specsContent.style.display !== 'none';
         specsContent.style.display = isVisible ? 'none' : 'block';
-        specsToggle.textContent = isVisible ? 'Show Specifications' : 'Hide Specifications';
+        detailsButton.textContent = isVisible ? 'Details' : 'Hide';
       });
 
       const specsContent = document.createElement('div');
@@ -129,7 +296,7 @@ function render(data){
       });
 
       specsContent.appendChild(specsGrid);
-      card.appendChild(specsToggle);
+      card.appendChild(detailsButton);
       card.appendChild(specsContent);
     }
     grid.appendChild(card);
