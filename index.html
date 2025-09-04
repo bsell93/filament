@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <header class="site-header">
@@ -34,6 +35,10 @@
             <label><input type="checkbox" id="flag-hygro"> Moisture sensitive</label>
             <label><input type="checkbox" id="flag-aesthetic"> Aesthetic</label>
           </div>
+          <div class="filter-group">
+            <button id="compare-btn" class="compare-btn" disabled>Compare (0)</button>
+            <button id="clear-compare-btn" class="clear-compare-btn" disabled>Clear</button>
+          </div>
         </div>
         <div id="status" role="status" aria-live="polite" class="status"></div>
       </div>
@@ -54,9 +59,51 @@
     </aside>
   </main>
 
+  <!-- Comparison Modal -->
+  <div id="comparison-modal" class="comparison-modal" style="display: none;">
+    <div class="comparison-content">
+      <div class="comparison-header">
+        <h2>Filament Comparison</h2>
+        <button id="close-comparison" class="close-btn">&times;</button>
+      </div>
+      <div id="comparison-charts" class="comparison-charts">
+        <canvas id="radar-chart" width="400" height="400"></canvas>
+      </div>
+      <div id="comparison-table" class="comparison-table"></div>
+    </div>
+  </div>
+
   <footer class="site-footer">
     <div class="container">
       <p>Made for quick reference by Bryant — data summarized from the video above. ✌️</p>
+      
+      <div class="sources-section">
+        <h3>Sources & References</h3>
+        <ul>
+          <li><strong>Primary Source:</strong> <a href="https://youtu.be/weeG9yOp3i4?si=ZJltEyknAWTCOz7N" target="_blank" rel="noopener">"The Filament Tier List! Which Should YOU Use?" by Zack Freedman</a> – In-depth video review and ranking of 3D printing filaments</li>
+          <li><strong>Technical References:</strong>
+            <ul>
+              <li><a href="https://en.wikipedia.org/wiki/3D_printing_filament" target="_blank" rel="noopener">3D Printing Filament – Wikipedia</a> – Overview of filament types, properties, and uses</li>
+              <li><a href="https://www.simplify3d.com/resources/materials-guide/" target="_blank" rel="noopener">Simplify3D Materials Guide</a> – Detailed guide to 3D printing materials, their properties, and print settings</li>
+              <li><a href="https://all3dp.com/1/3d-printer-filament-types-3d-printing-3d-filament/" target="_blank" rel="noopener">All3DP: 3D Printer Filament Types Explained</a> – Comprehensive breakdown of filament types, pros, cons, and applications</li>
+            </ul>
+          </li>
+          <li><strong>Manufacturer Datasheets & Specifications:</strong>
+            <ul>
+              <li><a href="https://help.prusa3d.com/filament-material-guide" target="_blank" rel="noopener">Prusa Filament Material Guide</a> – Official Prusa Research material data, print settings, and recommendations</li>
+              <li><a href="https://www.matterhackers.com/3d-printer-filament-compare" target="_blank" rel="noopener">MatterHackers Filament Comparison</a> – Side-by-side comparison of filament properties and print parameters</li>
+              <li><a href="https://us.polymaker.com/pages/filament-guide" target="_blank" rel="noopener">Polymaker Filament Guide</a> – Manufacturer datasheets, print tips, and technical specifications</li>
+            </ul>
+          </li>
+          <li><strong>Community Resources:</strong>
+            <ul>
+              <li><a href="https://www.reddit.com/r/3Dprinting/wiki/materials" target="_blank" rel="noopener">r/3Dprinting Materials Wiki</a> – Community-sourced print settings, tips, and filament experiences</li>
+              <li><a href="https://www.thingiverse.com/groups" target="_blank" rel="noopener">Thingiverse Groups</a> – User discussions and recommendations on 3D printing materials</li>
+            </ul>
+          </li>
+        </ul>
+        <p><em>Note: This page is maintained as a quick reference tool. Always consult manufacturer specifications and conduct your own testing for critical applications. Printing parameters may vary based on printer model, environmental conditions, and specific filament brand.</em></p>
+      </div>
     </div>
   </footer>
 

@@ -1,4 +1,8 @@
 
+// Global state for comparison
+let comparisonFilaments = new Set();
+let allFilaments = [];
+
 async function fetchOrFallback(){
   const status = document.getElementById('status');
   try {
@@ -94,102 +98,210 @@ function normalizeSpecValue(value, specType) {
   }
 }
 
-function createRadarChart(specs, container) {
-  const size = 160;
-  const center = size / 2;
-  const radius = 45;
+function wrapTooltipText(text, maxLength = 50) {
+  if (text.length <= maxLength) return [text];
   
-  const chartData = [
-    { key: 'warping', label: 'Warping', value: normalizeSpecValue(specs.warping, 'warping') },
-    { key: 'temperature_resistance', label: 'Temp', value: normalizeSpecValue(specs.temperature_resistance, 'temperature_resistance') },
-    { key: 'flexibility', label: 'Flex', value: normalizeSpecValue(specs.flexibility, 'flexibility') },
-    { key: 'tensile_strength', label: 'Strength', value: normalizeSpecValue(specs.tensile_strength, 'tensile_strength') },
-    { key: 'impact_resistance', label: 'Impact', value: normalizeSpecValue(specs.impact_resistance, 'impact_resistance') },
-    { key: 'print_speed', label: 'Speed', value: normalizeSpecValue(specs.print_speed, 'print_speed') }
-  ];
+  const words = text.split(' ');
+  const lines = [];
+  let currentLine = '';
   
-  const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-  svg.setAttribute('width', size);
-  svg.setAttribute('height', size);
-  svg.setAttribute('viewBox', `0 0 ${size} ${size}`);
-  svg.className = 'radar-chart';
-  
-  // Create grid circles
-  for (let i = 1; i <= 5; i++) {
-    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    circle.setAttribute('cx', center);
-    circle.setAttribute('cy', center);
-    circle.setAttribute('r', (radius * i) / 5);
-    circle.setAttribute('fill', 'none');
-    circle.setAttribute('stroke', '#2a3347');
-    circle.setAttribute('stroke-width', '0.5');
-    svg.appendChild(circle);
+  for (const word of words) {
+    if ((currentLine + ' ' + word).length <= maxLength) {
+      currentLine += (currentLine ? ' ' : '') + word;
+    } else {
+      if (currentLine) {
+        lines.push(currentLine);
+        currentLine = word;
+      } else {
+        // Word is longer than maxLength, force it on its own line
+        lines.push(word);
+      }
+    }
   }
   
-  // Create grid lines
-  chartData.forEach((_, index) => {
-    const angle = (index * 2 * Math.PI) / chartData.length - Math.PI / 2;
-    const x2 = center + radius * Math.cos(angle);
-    const y2 = center + radius * Math.sin(angle);
+  if (currentLine) {
+    lines.push(currentLine);
+  }
+  
+  return lines;
+}
+
+function getOptimalCharacterLimit(tooltipElement, canvasElement = null) {
+  if (!tooltipElement) return 50;
+  
+  // Get the actual width of the tooltip
+  const tooltipWidth = tooltipElement.offsetWidth || tooltipElement.clientWidth;
+  
+  // If we have a canvas element, use its size to determine optimal character limit
+  let canvasWidth = 400; // Default fallback
+  if (canvasElement) {
+    const rect = canvasElement.getBoundingClientRect();
+    canvasWidth = rect.width || canvasElement.width || 400;
+  }
+  
+  // For very small canvases (card charts), use a much more conservative approach
+  if (canvasWidth < 200) {
+    return 20; // Very conservative limit for card charts
+  }
+  
+  // Calculate character limit based on both tooltip width and canvas size
+  // Smaller canvas = more conservative character limits
+  const canvasRatio = Math.min(canvasWidth / 400, 1); // Normalize to 400px reference
+  const baseCharsPerLine = Math.floor(tooltipWidth / 8);
+  
+  // Adjust based on canvas size - smaller canvas gets more conservative limits
+  let adjustedChars = Math.floor(baseCharsPerLine * canvasRatio);
+  
+  // Add padding and ensure reasonable bounds
+  const padding = Math.max(10, Math.floor(adjustedChars * 0.3)); // 30% padding
+  const minLimit = Math.max(20, Math.floor(adjustedChars * 0.3)); // At least 30% of adjusted
+  const maxLimit = Math.min(100, Math.floor(adjustedChars * 0.9)); // Up to 90% of adjusted
+  
+  const optimalLength = Math.max(minLimit, Math.min(maxLimit, adjustedChars - padding));
+  
+  return optimalLength;
+}
+
+function createDynamicTooltipCallback(chartData, filament, isComparison = false, canvasElement = null) {
+  return function(context) {
+    const spec = chartData[context.dataIndex];
+    const originalValue = filament.specs[spec.key] || 'N/A';
+    const normalizedValue = context.parsed.r.toFixed(0);
     
-    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-    line.setAttribute('x1', center);
-    line.setAttribute('y1', center);
-    line.setAttribute('x2', x2);
-    line.setAttribute('y2', y2);
-    line.setAttribute('stroke', '#2a3347');
-    line.setAttribute('stroke-width', '0.5');
-    svg.appendChild(line);
-  });
-  
-  // Create data polygon
-  const points = chartData.map((data, index) => {
-    const angle = (index * 2 * Math.PI) / chartData.length - Math.PI / 2;
-    const x = center + radius * data.value * Math.cos(angle);
-    const y = center + radius * data.value * Math.sin(angle);
-    return `${x},${y}`;
-  }).join(' ');
-  
-  const polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-  polygon.setAttribute('points', points);
-  polygon.setAttribute('fill', 'rgba(122, 162, 247, 0.2)');
-  polygon.setAttribute('stroke', '#7aa2f7');
-  polygon.setAttribute('stroke-width', '1.5');
-  svg.appendChild(polygon);
-  
-  // Create data points
-  chartData.forEach((data, index) => {
-    const angle = (index * 2 * Math.PI) / chartData.length - Math.PI / 2;
-    const x = center + radius * data.value * Math.cos(angle);
-    const y = center + radius * data.value * Math.sin(angle);
+    // Try to get the tooltip element for dynamic sizing
+    const tooltipElement = document.querySelector('.chartjs-tooltip');
+    const charLimit = getOptimalCharacterLimit(tooltipElement, canvasElement);
     
-    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    circle.setAttribute('cx', x);
-    circle.setAttribute('cy', y);
-    circle.setAttribute('r', '2');
-    circle.setAttribute('fill', '#7aa2f7');
-    svg.appendChild(circle);
-  });
-  
-  // Create labels
-  chartData.forEach((data, index) => {
-    const angle = (index * 2 * Math.PI) / chartData.length - Math.PI / 2;
-    const labelRadius = radius + 25;
-    const x = center + labelRadius * Math.cos(angle);
-    const y = center + labelRadius * Math.sin(angle);
+    const wrappedDescription = wrapTooltipText(spec.description, charLimit);
     
-    const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-    text.setAttribute('x', x);
-    text.setAttribute('y', y);
-    text.setAttribute('text-anchor', 'middle');
-    text.setAttribute('dominant-baseline', 'middle');
-    text.setAttribute('font-size', '10');
-    text.setAttribute('fill', '#a6adbb');
-    text.textContent = data.label;
-    svg.appendChild(text);
-  });
+    if (isComparison) {
+      return [
+        `${context.label}: ${originalValue} (${normalizedValue}%)`,
+        '',
+        ...wrappedDescription
+      ];
+    } else {
+      return [
+        `${originalValue} (${normalizedValue}%)`,
+        '',
+        ...wrappedDescription
+      ];
+    }
+  };
+}
+
+function createCardRadarChart(filament, canvas) {
+  const chartData = [
+    { 
+      key: 'warping', 
+      label: 'Warping',
+      description: 'How much the material bends during printing. Low warping means easier printing with fewer failed prints and better dimensional accuracy.'
+    },
+    { 
+      key: 'temperature_resistance', 
+      label: 'Temp',
+      description: 'Maximum temperature before the material deforms or loses its shape. Higher values mean better performance in hot environments and automotive applications.'
+    },
+    { 
+      key: 'flexibility', 
+      label: 'Flex',
+      description: 'How much the material can bend before breaking. Higher flexibility means more durable parts that can absorb impacts and stress without cracking.'
+    },
+    { 
+      key: 'tensile_strength', 
+      label: 'Strength',
+      description: 'Resistance to breaking when pulled apart. Higher tensile strength means stronger parts that can handle more load and mechanical stress.'
+    },
+    { 
+      key: 'impact_resistance', 
+      label: 'Impact',
+      description: 'Resistance to breaking from sudden force or impact. Higher impact resistance means more durable parts that won\'t crack when dropped or hit.'
+    },
+    { 
+      key: 'print_speed', 
+      label: 'Speed',
+      description: 'How fast you can print without quality issues. Higher print speeds mean faster prototyping and production, saving time and material costs.'
+    }
+  ];
   
-  container.appendChild(svg);
+  const ctx = canvas.getContext('2d');
+  
+  const chart = new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: chartData.map(data => data.label),
+      datasets: [{
+        data: chartData.map(data => normalizeSpecValue(filament.specs[data.key], data.key) * 100),
+        borderColor: '#7aa2f7',
+        backgroundColor: 'rgba(122, 162, 247, 0.2)',
+        pointBackgroundColor: '#7aa2f7',
+        pointBorderColor: '#fff',
+        pointBorderWidth: 1,
+        pointRadius: 2,
+        pointHoverRadius: 3,
+        borderWidth: 1.5,
+        fill: true
+      }]
+    },
+    options: {
+      responsive: false,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: {
+          display: false
+        },
+        tooltip: {
+          backgroundColor: '#14171c',
+          titleColor: '#7aa2f7',
+          bodyColor: '#e6e9ef',
+          borderColor: '#1f2430',
+          borderWidth: 1,
+          cornerRadius: 6,
+          displayColors: false,
+          callbacks: {
+            title: function(context) {
+              return context[0].label;
+            },
+            label: function(context) {
+              const spec = chartData[context.dataIndex];
+              const originalValue = filament.specs[spec.key] || 'N/A';
+              const normalizedValue = context.parsed.r.toFixed(0);
+              return [
+                `${originalValue} (${normalizedValue}%)`
+              ];
+            }
+          }
+        }
+      },
+      scales: {
+        r: {
+          beginAtZero: true,
+          max: 100,
+          min: 0,
+          ticks: {
+            display: false
+          },
+          grid: {
+            color: '#2a3347'
+          },
+          angleLines: {
+            color: '#2a3347'
+          },
+                  pointLabels: {
+          color: '#a6adbb',
+          font: {
+            size: 10
+          }
+        }
+        }
+      },
+      elements: {
+        line: {
+          tension: 0.1
+        }
+      }
+    }
+  });
 }
 
 function render(data){
@@ -198,6 +310,23 @@ function render(data){
   data.forEach(f => {
     const card = document.createElement('article');
     card.className = 'card';
+    card.style.position = 'relative';
+    
+    // Add comparison checkbox
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.className = 'comparison-checkbox';
+    checkbox.checked = comparisonFilaments.has(f.name);
+    checkbox.addEventListener('change', (e) => {
+      if (e.target.checked) {
+        comparisonFilaments.add(f.name);
+      } else {
+        comparisonFilaments.delete(f.name);
+      }
+      updateComparisonControls();
+    });
+    card.appendChild(checkbox);
+    
     const name = document.createElement('h3');
     const tier = document.createElement('span');
     tier.className = 'tier ' + f.tier;
@@ -239,8 +368,18 @@ function render(data){
     if (f.specs) {
       const chartContainer = document.createElement('div');
       chartContainer.className = 'radar-chart-container';
-      createRadarChart(f.specs, chartContainer);
+      
+      // Create canvas for Chart.js
+      const canvas = document.createElement('canvas');
+      canvas.id = `chart-${f.name.replace(/[^a-zA-Z0-9]/g, '-')}`;
+      canvas.width = 160;
+      canvas.height = 160;
+      chartContainer.appendChild(canvas);
+      
       card.appendChild(chartContainer);
+      
+      // Create Chart.js radar chart for this filament
+      createCardRadarChart(f, canvas);
 
       // Add minimal details button
       const detailsButton = document.createElement('button');
@@ -337,4 +476,410 @@ function setupFilters(allData){
   apply();
 }
 
-fetchOrFallback().then(data => { render(data); setupFilters(data); });
+// Comparison functionality
+function updateComparisonControls() {
+  const compareBtn = document.getElementById('compare-btn');
+  const clearBtn = document.getElementById('clear-compare-btn');
+  const count = comparisonFilaments.size;
+  
+  compareBtn.disabled = count < 2;
+  clearBtn.disabled = count === 0;
+  compareBtn.textContent = `Compare (${count})`;
+}
+
+function showComparison() {
+  const modal = document.getElementById('comparison-modal');
+  const selectedFilaments = allFilaments.filter(f => comparisonFilaments.has(f.name));
+  
+  if (selectedFilaments.length < 2) return;
+  
+  // Show modal first
+  modal.style.display = 'flex';
+  
+  // Create comparison table
+  const tableContainer = document.getElementById('comparison-table');
+  tableContainer.innerHTML = createComparisonTable(selectedFilaments);
+  
+  // Create comparison charts after modal is visible and canvas is ready
+  requestAnimationFrame(() => {
+    createComparisonCharts(selectedFilaments);
+  });
+}
+
+function createComparisonTable(filaments) {
+  const table = document.createElement('table');
+  
+  // Header row
+  const headerRow = document.createElement('tr');
+  headerRow.innerHTML = '<th>Property</th>';
+  filaments.forEach(f => {
+    const th = document.createElement('th');
+    th.innerHTML = `<div class="filament-name">${f.name}</div><span class="tier-badge ${f.tier}">${f.tier}</span>`;
+    headerRow.appendChild(th);
+  });
+  table.appendChild(headerRow);
+  
+  // Basic properties with improved styling
+  const properties = [
+    { key: 'temp', label: 'Nozzle Temp' },
+    { key: 'use_cases', label: 'Use Cases' },
+    { key: 'notes', label: 'Notes' },
+    { key: 'enclosure', label: 'Prefers Enclosure', transform: (val) => val ? 'Yes' : 'No' },
+    { key: 'hygroscopic', label: 'Moisture Sensitive', transform: (val) => val ? 'Yes' : 'No' }
+  ];
+  
+  properties.forEach(prop => {
+    const row = document.createElement('tr');
+    const labelCell = document.createElement('td');
+    labelCell.textContent = prop.label;
+    labelCell.style.fontWeight = '600';
+    labelCell.style.color = 'var(--muted)';
+    row.appendChild(labelCell);
+    
+    filaments.forEach((f, index) => {
+      const cell = document.createElement('td');
+      const cellContent = document.createElement('div');
+      cellContent.className = 'comparison-cell comparison-basic-highlight';
+      
+      let value = f[prop.key];
+      if (prop.transform) {
+        value = prop.transform(value);
+      }
+      cellContent.textContent = value || 'N/A';
+      cell.appendChild(cellContent);
+      row.appendChild(cell);
+    });
+    
+    table.appendChild(row);
+  });
+  
+  // Badges row with improved styling
+  const badgesRow = document.createElement('tr');
+  const badgesLabelCell = document.createElement('td');
+  badgesLabelCell.textContent = 'Flags';
+  badgesLabelCell.style.fontWeight = '600';
+  badgesLabelCell.style.color = 'var(--muted)';
+  badgesRow.appendChild(badgesLabelCell);
+  
+  filaments.forEach((f, index) => {
+    const cell = document.createElement('td');
+    const cellContent = document.createElement('div');
+    cellContent.className = 'comparison-cell comparison-basic-highlight';
+    
+    const badgesContainer = document.createElement('div');
+    badgesContainer.className = 'comparison-badges';
+    
+    // Get badges for this filament
+    const canonical = (label) => {
+      const s = String(label).trim().toLowerCase();
+      if (/enclosure/.test(s)) return 'Prefers enclosure';
+      if (/hardened/.test(s))  return 'Requires hardened nozzle';
+      if (/moisture/.test(s))  return 'Moisture sensitive';
+      if (/aesthetic/.test(s)) return 'Aesthetic';
+      return label;
+    };
+    const badgeSet = new Set();
+    (f.badges || []).forEach(b => badgeSet.add(canonical(b)));
+    if (f.enclosure)    badgeSet.add('Prefers enclosure');
+    if (f.hygroscopic)  badgeSet.add('Moisture sensitive');
+    const badgeValues = Array.from(badgeSet);
+    
+    badgeValues.forEach(badge => {
+      const badgeEl = document.createElement('span');
+      badgeEl.className = 'comparison-badge';
+      if (badge.toLowerCase().includes('enclosure')) badgeEl.classList.add('enclosure');
+      if (badge.toLowerCase().includes('hardened')) badgeEl.classList.add('hardened');
+      if (badge.toLowerCase().includes('moisture')) badgeEl.classList.add('hygro');
+      if (badge.toLowerCase().includes('aesthetic')) badgeEl.classList.add('aesthetic');
+      badgeEl.textContent = badge;
+      badgesContainer.appendChild(badgeEl);
+    });
+    
+    if (badgeValues.length === 0) {
+      badgesContainer.textContent = 'None';
+    }
+    
+    cellContent.appendChild(badgesContainer);
+    cell.appendChild(cellContent);
+    badgesRow.appendChild(cell);
+  });
+  
+  table.appendChild(badgesRow);
+  
+  // Specifications rows with improved styling
+  if (filaments[0].specs) {
+    const specProperties = [
+      { key: 'warping', label: 'Warping' },
+      { key: 'temperature_resistance', label: 'Temp Resistance' },
+      { key: 'flexibility', label: 'Flexibility' },
+      { key: 'tensile_strength', label: 'Tensile Strength' },
+      { key: 'impact_resistance', label: 'Impact Resistance' },
+      { key: 'chemical_resistance', label: 'Chemical Resistance' },
+      { key: 'uv_resistance', label: 'UV Resistance' },
+      { key: 'bed_temp', label: 'Bed Temp' },
+      { key: 'print_speed', label: 'Print Speed' },
+      { key: 'layer_adhesion', label: 'Layer Adhesion' },
+      { key: 'shrinkage', label: 'Shrinkage' },
+      { key: 'density', label: 'Density' }
+    ];
+    
+    specProperties.forEach(spec => {
+      const row = document.createElement('tr');
+      const labelCell = document.createElement('td');
+      labelCell.textContent = spec.label;
+      labelCell.style.fontWeight = '600';
+      labelCell.style.color = 'var(--muted)';
+      row.appendChild(labelCell);
+      
+      filaments.forEach((f, index) => {
+        const cell = document.createElement('td');
+        const cellContent = document.createElement('div');
+        cellContent.className = 'comparison-cell comparison-spec-highlight';
+        cellContent.textContent = f.specs?.[spec.key] || 'N/A';
+        cell.appendChild(cellContent);
+        row.appendChild(cell);
+      });
+      
+      table.appendChild(row);
+    });
+  }
+  
+  return table.outerHTML;
+}
+
+let radarChart = null;
+
+function createComparisonCharts(filaments) {
+  if (!filaments[0].specs) return '';
+  
+  console.log('Creating radar chart for filaments:', filaments.map(f => f.name));
+  
+  // Destroy existing chart if it exists
+  if (radarChart) {
+    radarChart.destroy();
+  }
+  
+  // Get canvas element
+  const canvas = document.getElementById('radar-chart');
+  if (!canvas) {
+    console.error('Canvas element not found!');
+    return '';
+  }
+  
+  // Check if canvas is visible and has dimensions
+  const rect = canvas.getBoundingClientRect();
+  if (rect.width === 0 || rect.height === 0) {
+    console.warn('Canvas has no dimensions, retrying...');
+    // Retry on next frame if canvas isn't ready
+    requestAnimationFrame(() => createComparisonCharts(filaments));
+    return '';
+  }
+  
+  console.log('Canvas found and ready:', canvas, 'Dimensions:', rect.width, 'x', rect.height);
+  
+  // Create Chart.js radar chart
+  const ctx = canvas.getContext('2d');
+  
+  const chartData = [
+    { 
+      key: 'warping', 
+      label: 'Warping',
+      description: 'How much the material bends during printing. Low warping means easier printing with fewer failed prints and better dimensional accuracy.'
+    },
+    { 
+      key: 'temperature_resistance', 
+      label: 'Temperature Resistance',
+      description: 'Maximum temperature before the material deforms or loses its shape. Higher values mean better performance in hot environments and automotive applications.'
+    },
+    { 
+      key: 'flexibility', 
+      label: 'Flexibility',
+      description: 'How much the material can bend before breaking. Higher flexibility means more durable parts that can absorb impacts and stress without cracking.'
+    },
+    { 
+      key: 'tensile_strength', 
+      label: 'Tensile Strength',
+      description: 'Resistance to breaking when pulled apart. Higher tensile strength means stronger parts that can handle more load and mechanical stress.'
+    },
+    { 
+      key: 'impact_resistance', 
+      label: 'Impact Resistance',
+      description: 'Resistance to breaking from sudden force or impact. Higher impact resistance means more durable parts that won\'t crack when dropped or hit.'
+    },
+    { 
+      key: 'print_speed', 
+      label: 'Print Speed',
+      description: 'How fast you can print without quality issues. Higher print speeds mean faster prototyping and production, saving time and material costs.'
+    }
+  ];
+  
+  const datasets = filaments.map((filament, index) => {
+    const colors = ['#7aa2f7', '#9ece6a', '#e0af68', '#bb9af7', '#f7768e', '#7dcfff'];
+    const color = colors[index % colors.length];
+    
+    return {
+      label: filament.name,
+      data: chartData.map(data => normalizeSpecValue(filament.specs[data.key], data.key) * 100),
+      borderColor: color,
+      backgroundColor: color + '20',
+      pointBackgroundColor: color,
+      pointBorderColor: '#fff',
+      pointBorderWidth: 2,
+      pointRadius: 5,
+      pointHoverRadius: 7,
+      borderWidth: 2,
+      fill: true
+    };
+  });
+  
+  try {
+    radarChart = new Chart(ctx, {
+      type: 'radar',
+      data: {
+        labels: chartData.map(data => data.label),
+        datasets: datasets
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: {
+              color: '#e6e9ef',
+              font: {
+                size: 12
+              },
+              padding: 20,
+              usePointStyle: true,
+              pointStyle: 'circle'
+            }
+          },
+          tooltip: {
+            backgroundColor: '#14171c',
+            titleColor: '#7aa2f7',
+            bodyColor: '#e6e9ef',
+            borderColor: '#1f2430',
+            borderWidth: 1,
+            cornerRadius: 6,
+            displayColors: true,
+            callbacks: {
+              title: function(context) {
+                return context[0].dataset.label;
+              },
+              label: function(context) {
+                const filament = filaments[context.datasetIndex];
+                return createDynamicTooltipCallback(chartData, filament, true, canvas)(context);
+              }
+            }
+          }
+        },
+        scales: {
+          r: {
+            beginAtZero: true,
+            max: 100,
+            min: 0,
+            ticks: {
+              display: false
+            },
+            grid: {
+              color: '#2a3347'
+            },
+            angleLines: {
+              color: '#2a3347'
+            },
+            pointLabels: {
+              color: '#a6adbb',
+              font: {
+                size: 11
+              }
+            }
+          }
+        },
+        elements: {
+          line: {
+            tension: 0.1
+          }
+        }
+      }
+    });
+    
+    console.log('Chart created successfully:', radarChart);
+  } catch (error) {
+    console.error('Error creating chart:', error);
+  }
+  
+  return '';
+}
+
+function clearComparison() {
+  comparisonFilaments.clear();
+  updateComparisonControls();
+  
+  // Uncheck all checkboxes
+  document.querySelectorAll('.comparison-checkbox').forEach(checkbox => {
+    checkbox.checked = false;
+  });
+}
+
+function setupComparison() {
+  const compareBtn = document.getElementById('compare-btn');
+  const clearBtn = document.getElementById('clear-compare-btn');
+  const closeBtn = document.getElementById('close-comparison');
+  const modal = document.getElementById('comparison-modal');
+  
+  compareBtn.addEventListener('click', showComparison);
+  clearBtn.addEventListener('click', clearComparison);
+  closeBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+  });
+  
+  // Close modal when clicking outside
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.style.display = 'none';
+    }
+  });
+}
+
+fetchOrFallback().then(data => { 
+  allFilaments = data;
+  render(data); 
+  setupFilters(data); 
+  setupComparison();
+  updateComparisonControls();
+  addAxisInfoToLegend();
+});
+
+// Add axis info to existing legend section
+function addAxisInfoToLegend() {
+  const legend = document.querySelector('.legend');
+  if (!legend) return;
+  
+  // Add axis descriptions to the legend
+  const axisInfo = document.createElement('div');
+  axisInfo.className = 'axis-descriptions';
+  axisInfo.style.cssText = `
+    margin-top: 16px;
+    padding: 12px;
+    background: rgba(122, 162, 247, 0.05);
+    border: 1px solid rgba(122, 162, 247, 0.2);
+    border-radius: 6px;
+    font-size: 12px;
+    line-height: 1.4;
+  `;
+  
+  axisInfo.innerHTML = `
+    <h4 style="margin: 0 0 8px 0; color: #7aa2f7; font-size: 14px;">Chart Axis Descriptions:</h4>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 8px;">
+      <div><strong>Warping:</strong> How much the material bends during printing. Low warping means easier printing with fewer failed prints.</div>
+      <div><strong>Temperature Resistance:</strong> Maximum temperature before the material deforms. Higher values mean better performance in hot environments.</div>
+      <div><strong>Flexibility:</strong> How much the material can bend before breaking. Higher flexibility means more durable parts.</div>
+      <div><strong>Tensile Strength:</strong> Resistance to breaking when pulled apart. Higher tensile strength means stronger parts.</div>
+      <div><strong>Impact Resistance:</strong> Resistance to breaking from sudden force. Higher impact resistance means more durable parts.</div>
+      <div><strong>Print Speed:</strong> How fast you can print without quality issues. Higher print speeds mean faster prototyping.</div>
+    </div>
+  `;
+  
+  legend.appendChild(axisInfo);
+}

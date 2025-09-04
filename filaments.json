@@ -74,18 +74,18 @@
     }
   },
   {
-    "name": "TPU (High Durometer)",
+    "name": "TPU 99D",
     "tier": "S",
-    "temp": "200–230°C",
-    "notes": "Very tough and resilient.",
+    "temp": "225–235°C",
+    "notes": "Very rigid thermoplastic polyurethane with high hardness and durability; minimal flexibility.",
     "badges": [],
-    "use_cases": "Impact-heavy parts (e.g., combat robotics)",
+    "use_cases": "Impact-heavy parts requiring minimal flexibility",
     "enclosure": false,
     "hygroscopic": false,
     "specs": {
       "warping": "Low",
       "temperature_resistance": "80°C",
-      "flexibility": "High (Shore 85A-95A)",
+      "flexibility": "Low (Shore 99D - very rigid)",
       "tensile_strength": "High",
       "impact_resistance": "Very High",
       "chemical_resistance": "Moderate",
@@ -119,6 +119,33 @@
       "layer_adhesion": "Excellent",
       "shrinkage": "Low (0.2–0.4%)",
       "density": "1.27 g/cm³"
+    }
+  },
+  {
+    "name": "Glass-Filled Nylon (GF Nylon)",
+    "tier": "S",
+    "temp": "240–260°C",
+    "notes": "Nylon reinforced with glass fibers for enhanced strength and heat resistance; excellent for structural components.",
+    "badges": [
+      "Requires hardened nozzle",
+      "Prefers enclosure"
+    ],
+    "use_cases": "Structural components and automotive parts",
+    "enclosure": true,
+    "hygroscopic": true,
+    "specs": {
+      "warping": "High",
+      "temperature_resistance": "120°C (glass transition)",
+      "flexibility": "Low (stiff due to glass fibers)",
+      "tensile_strength": "Very High (enhanced by glass fibers)",
+      "impact_resistance": "High",
+      "chemical_resistance": "High",
+      "uv_resistance": "Moderate",
+      "bed_temp": "70–100°C",
+      "print_speed": "Moderate",
+      "layer_adhesion": "Good",
+      "shrinkage": "High (0.6–0.8%)",
+      "density": "1.20–1.30 g/cm³"
     }
   },
   {
@@ -344,6 +371,58 @@
     }
   },
   {
+    "name": "Carbon Fiber PET (CF PET)",
+    "tier": "A",
+    "temp": "230–250°C",
+    "notes": "PET reinforced with carbon fibers for enhanced strength and stiffness; stiffer than standard PETG.",
+    "badges": [
+      "Requires hardened nozzle"
+    ],
+    "use_cases": "High-stiffness mechanical components",
+    "enclosure": false,
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Low-Medium",
+      "temperature_resistance": "85°C (glass transition)",
+      "flexibility": "Low (stiff due to carbon fiber)",
+      "tensile_strength": "Very High (enhanced by carbon fiber)",
+      "impact_resistance": "High",
+      "chemical_resistance": "High",
+      "uv_resistance": "Moderate",
+      "bed_temp": "70–90°C",
+      "print_speed": "Moderate",
+      "layer_adhesion": "Good",
+      "shrinkage": "Low (0.1–0.3%)",
+      "density": "1.35–1.45 g/cm³"
+    }
+  },
+  {
+    "name": "Ultem (PEI)",
+    "tier": "A",
+    "temp": "340–380°C",
+    "notes": "High-performance polyetherimide with exceptional heat resistance and strength; used in aerospace and medical applications.",
+    "badges": [
+      "Prefers enclosure"
+    ],
+    "use_cases": "High-temperature engineering applications",
+    "enclosure": true,
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Medium",
+      "temperature_resistance": "217°C (glass transition)",
+      "flexibility": "Moderate",
+      "tensile_strength": "Very High",
+      "impact_resistance": "High",
+      "chemical_resistance": "Very High",
+      "uv_resistance": "High",
+      "bed_temp": "120–140°C",
+      "print_speed": "Slow",
+      "layer_adhesion": "Good",
+      "shrinkage": "Medium (0.5–0.7%)",
+      "density": "1.27 g/cm³"
+    }
+  },
+  {
     "name": "Silk PLA",
     "tier": "B",
     "temp": "200–220°C",
@@ -524,10 +603,164 @@
     }
   },
   {
+    "name": "Matte PLA",
+    "tier": "B",
+    "temp": "190–220°C",
+    "notes": "PLA formulated to produce a matte finish, reducing layer visibility for aesthetic prints.",
+    "badges": [
+      "Aesthetic"
+    ],
+    "use_cases": "Aesthetic models with matte finish",
+    "enclosure": false,
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Low",
+      "temperature_resistance": "60°C (glass transition)",
+      "flexibility": "Low (brittle)",
+      "tensile_strength": "Moderate",
+      "impact_resistance": "Low",
+      "chemical_resistance": "Low",
+      "uv_resistance": "Low",
+      "bed_temp": "45–60°C",
+      "print_speed": "Moderate",
+      "layer_adhesion": "Good",
+      "shrinkage": "Low (0.1–0.2%)",
+      "density": "1.20–1.25 g/cm³"
+    }
+  },
+  {
+    "name": "Flex PLA (PCL)",
+    "tier": "B",
+    "temp": "190–220°C",
+    "notes": "Flexible PLA variant offering slight elasticity; easier to print than TPU but less flexible.",
+    "badges": [],
+    "use_cases": "Parts requiring slight flexibility",
+    "enclosure": false,
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Low",
+      "temperature_resistance": "60°C (glass transition)",
+      "flexibility": "Moderate",
+      "tensile_strength": "Moderate",
+      "impact_resistance": "Moderate",
+      "chemical_resistance": "Low",
+      "uv_resistance": "Low",
+      "bed_temp": "45–60°C",
+      "print_speed": "Moderate",
+      "layer_adhesion": "Good",
+      "shrinkage": "Low (0.1–0.2%)",
+      "density": "1.20–1.25 g/cm³"
+    }
+  },
+  {
+    "name": "PVB",
+    "tier": "B",
+    "temp": "200–220°C",
+    "notes": "Transparent filament that can be smoothed with alcohol; good for aesthetic prints.",
+    "badges": [
+      "Aesthetic"
+    ],
+    "use_cases": "Transparent aesthetic prints",
+    "enclosure": false,
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Low-Medium",
+      "temperature_resistance": "80°C (glass transition)",
+      "flexibility": "Moderate",
+      "tensile_strength": "Moderate",
+      "impact_resistance": "Moderate",
+      "chemical_resistance": "Moderate",
+      "uv_resistance": "Moderate",
+      "bed_temp": "60–80°C",
+      "print_speed": "Moderate",
+      "layer_adhesion": "Good",
+      "shrinkage": "Low (0.2–0.4%)",
+      "density": "1.07 g/cm³"
+    }
+  },
+  {
+    "name": "Nylon PA-12",
+    "tier": "B",
+    "temp": "220–260°C",
+    "notes": "Lower moisture absorption than PA-6; better dimensional stability and easier to print.",
+    "badges": [
+      "Moisture sensitive",
+      "Prefers enclosure"
+    ],
+    "use_cases": "Durable parts with better dimensional stability",
+    "enclosure": true,
+    "hygroscopic": true,
+    "specs": {
+      "warping": "Medium",
+      "temperature_resistance": "120°C (glass transition)",
+      "flexibility": "High",
+      "tensile_strength": "High",
+      "impact_resistance": "Very High",
+      "chemical_resistance": "High",
+      "uv_resistance": "Low",
+      "bed_temp": "70–100°C",
+      "print_speed": "Moderate",
+      "layer_adhesion": "Good",
+      "shrinkage": "Medium (0.5–0.7%)",
+      "density": "1.01–1.03 g/cm³"
+    }
+  },
+  {
+    "name": "Carbon Fiber Nylon PA-6 (CF Nylon PA-6)",
+    "tier": "B",
+    "temp": "240–260°C",
+    "notes": "Nylon PA-6 reinforced with carbon fibers for enhanced strength and stiffness.",
+    "badges": [
+      "Requires hardened nozzle",
+      "Prefers enclosure"
+    ],
+    "use_cases": "High-strength structural parts",
+    "enclosure": true,
+    "hygroscopic": true,
+    "specs": {
+      "warping": "High",
+      "temperature_resistance": "120°C (glass transition)",
+      "flexibility": "Low (stiff due to carbon fiber)",
+      "tensile_strength": "Very High (enhanced by carbon fiber)",
+      "impact_resistance": "High",
+      "chemical_resistance": "High",
+      "uv_resistance": "Low",
+      "bed_temp": "70–100°C",
+      "print_speed": "Moderate",
+      "layer_adhesion": "Good",
+      "shrinkage": "High (0.6–0.8%)",
+      "density": "1.20–1.30 g/cm³"
+    }
+  },
+  {
+    "name": "TPU 80D",
+    "tier": "B",
+    "temp": "225–235°C",
+    "notes": "Rigid thermoplastic polyurethane offering balance between flexibility and hardness.",
+    "badges": [],
+    "use_cases": "Parts requiring moderate flexibility",
+    "enclosure": false,
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Low",
+      "temperature_resistance": "80°C",
+      "flexibility": "Moderate (Shore 80D)",
+      "tensile_strength": "High",
+      "impact_resistance": "High",
+      "chemical_resistance": "Moderate",
+      "uv_resistance": "Moderate",
+      "bed_temp": "40–60°C",
+      "print_speed": "Slow",
+      "layer_adhesion": "Excellent",
+      "shrinkage": "Low (0.1–0.3%)",
+      "density": "1.10–1.25 g/cm³"
+    }
+  },
+  {
     "name": "TPU (Low Durometer)",
     "tier": "C",
     "temp": "200–230°C",
-    "notes": "Very soft; tends to snake/jam; not breathable for wearables.",
+    "notes": "Very soft TPU; tends to snake/jam; not breathable for wearables.",
     "badges": [],
     "use_cases": "Highly flexible parts (if printer supports)",
     "enclosure": false,
@@ -649,14 +882,14 @@
     "name": "Glass-Filled Nylon (GFPA)",
     "tier": "C",
     "temp": "~300°C",
-    "notes": "Very durable; requires abrasion-resistant nozzles and temp control.",
+    "notes": "Very durable; requires abrasion-resistant nozzles and temp control. More challenging than S-tier GF Nylon.",
     "badges": [
       "Requires hardened nozzle",
       "Prefers enclosure"
     ],
-    "use_cases": "Tough structural parts",
+    "use_cases": "Tough structural parts (with capable setup)",
     "enclosure": true,
-    "hygroscopic": false,
+    "hygroscopic": true,
     "specs": {
       "warping": "High",
       "temperature_resistance": "120°C (glass transition)",
@@ -696,6 +929,311 @@
       "layer_adhesion": "Poor",
       "shrinkage": "Medium (0.4–0.6%)",
       "density": "1.18–1.20 g/cm³"
+    }
+  },
+  {
+    "name": "ABS",
+    "tier": "C",
+    "temp": "210–250°C",
+    "notes": "Durable and impact-resistant but prone to warping and emitting fumes during printing.",
+    "badges": [
+      "Prefers enclosure"
+    ],
+    "use_cases": "Functional parts requiring durability",
+    "enclosure": true,
+    "hygroscopic": false,
+    "specs": {
+      "warping": "High",
+      "temperature_resistance": "100°C (glass transition)",
+      "flexibility": "Moderate",
+      "tensile_strength": "High",
+      "impact_resistance": "High",
+      "chemical_resistance": "Moderate",
+      "uv_resistance": "Low",
+      "bed_temp": "80–110°C",
+      "print_speed": "Moderate",
+      "layer_adhesion": "Good",
+      "shrinkage": "High (0.6–0.8%)",
+      "density": "1.04–1.06 g/cm³"
+    }
+  },
+  {
+    "name": "Carbon Fiber Nylon PA-12 (CF Nylon PA-12)",
+    "tier": "C",
+    "temp": "240–260°C",
+    "notes": "Nylon PA-12 reinforced with carbon fibers; more challenging than PA-6 variants.",
+    "badges": [
+      "Requires hardened nozzle",
+      "Prefers enclosure"
+    ],
+    "use_cases": "High-strength parts with better dimensional stability",
+    "enclosure": true,
+    "hygroscopic": true,
+    "specs": {
+      "warping": "High",
+      "temperature_resistance": "120°C (glass transition)",
+      "flexibility": "Low (stiff due to carbon fiber)",
+      "tensile_strength": "Very High (enhanced by carbon fiber)",
+      "impact_resistance": "High",
+      "chemical_resistance": "High",
+      "uv_resistance": "Low",
+      "bed_temp": "70–100°C",
+      "print_speed": "Moderate",
+      "layer_adhesion": "Good",
+      "shrinkage": "High (0.6–0.8%)",
+      "density": "1.20–1.30 g/cm³"
+    }
+  },
+  {
+    "name": "Nylon/PETG Alloys",
+    "tier": "C",
+    "temp": "230–250°C",
+    "notes": "Blend aiming to combine nylon toughness with PETG printability; still challenging to print.",
+    "badges": [
+      "Moisture sensitive",
+      "Prefers enclosure"
+    ],
+    "use_cases": "Tough parts if printing challenges are overcome",
+    "enclosure": true,
+    "hygroscopic": true,
+    "specs": {
+      "warping": "High",
+      "temperature_resistance": "100°C (glass transition)",
+      "flexibility": "High",
+      "tensile_strength": "High",
+      "impact_resistance": "Very High",
+      "chemical_resistance": "High",
+      "uv_resistance": "Moderate",
+      "bed_temp": "70–90°C",
+      "print_speed": "Slow",
+      "layer_adhesion": "Moderate",
+      "shrinkage": "High (0.7–1.0%)",
+      "density": "1.10–1.20 g/cm³"
+    }
+  },
+  {
+    "name": "Clear PMMA",
+    "tier": "C",
+    "temp": "235–250°C",
+    "notes": "Transparent acrylic filament used for light diffusers and displays; brittle and poor adhesion.",
+    "badges": [
+      "Aesthetic"
+    ],
+    "use_cases": "Transparent display parts",
+    "enclosure": false,
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Medium",
+      "temperature_resistance": "80°C (glass transition)",
+      "flexibility": "Low (brittle)",
+      "tensile_strength": "Moderate",
+      "impact_resistance": "Low",
+      "chemical_resistance": "Moderate",
+      "uv_resistance": "High",
+      "bed_temp": "100–120°C",
+      "print_speed": "Moderate",
+      "layer_adhesion": "Poor",
+      "shrinkage": "Medium (0.4–0.6%)",
+      "density": "1.18–1.20 g/cm³"
+    }
+  },
+  {
+    "name": "Chocolate (Disqualified)",
+    "tier": "C",
+    "temp": "30–35°C",
+    "notes": "Edible material for novelty prints; not practical for standard 3D printing applications.",
+    "badges": [
+      "Aesthetic"
+    ],
+    "use_cases": "Novelty edible prints only",
+    "enclosure": false,
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Extreme",
+      "temperature_resistance": "30°C (melts easily)",
+      "flexibility": "Very High (soft)",
+      "tensile_strength": "Very Low",
+      "impact_resistance": "Very Low",
+      "chemical_resistance": "Very Low",
+      "uv_resistance": "Very Low",
+      "bed_temp": "15–25°C",
+      "print_speed": "Very Slow",
+      "layer_adhesion": "Very Poor",
+      "shrinkage": "Extreme (2.0–3.0%)",
+      "density": "1.0–1.1 g/cm³"
+    }
+  },
+  {
+    "name": "TPU 80C",
+    "tier": "C",
+    "temp": "200–230°C",
+    "notes": "Softer thermoplastic polyurethane providing greater flexibility than 80D variant.",
+    "badges": [],
+    "use_cases": "Highly flexible parts",
+    "enclosure": false,
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Low",
+      "temperature_resistance": "80°C",
+      "flexibility": "High (Shore 80C)",
+      "tensile_strength": "Moderate",
+      "impact_resistance": "High",
+      "chemical_resistance": "Moderate",
+      "uv_resistance": "Moderate",
+      "bed_temp": "40–60°C",
+      "print_speed": "Very Slow",
+      "layer_adhesion": "Excellent",
+      "shrinkage": "Low (0.1–0.3%)",
+      "density": "1.10–1.20 g/cm³"
+    }
+  },
+  {
+    "name": "OBC (Olefin Block Copolymer)",
+    "tier": "C",
+    "temp": "220–250°C",
+    "notes": "Aims for PP toughness + PETG versatility; still adhesion/warp problems.",
+    "badges": [],
+    "use_cases": "Tough parts if adhesion handled",
+    "enclosure": false,
+    "hygroscopic": false,
+    "specs": {
+      "warping": "High",
+      "temperature_resistance": "100°C (glass transition)",
+      "flexibility": "High",
+      "tensile_strength": "Moderate-High",
+      "impact_resistance": "High",
+      "chemical_resistance": "High",
+      "uv_resistance": "Moderate",
+      "bed_temp": "80–100°C",
+      "print_speed": "Moderate",
+      "layer_adhesion": "Poor",
+      "shrinkage": "High (0.8–1.2%)",
+      "density": "0.95–1.00 g/cm³"
+    }
+  },
+  {
+    "name": "PEEK",
+    "tier": "C",
+    "temp": "~400°C",
+    "notes": "Exceptional properties but extremely demanding and costly; needs enclosure.",
+    "badges": [
+      "Prefers enclosure"
+    ],
+    "use_cases": "High-end engineering with specialized printers",
+    "enclosure": true,
+    "hygroscopic": false,
+    "specs": {
+      "warping": "High",
+      "temperature_resistance": "250°C (continuous use)",
+      "flexibility": "Low",
+      "tensile_strength": "Very High",
+      "impact_resistance": "High",
+      "chemical_resistance": "Very High",
+      "uv_resistance": "High",
+      "bed_temp": "140–160°C",
+      "print_speed": "Very Slow",
+      "layer_adhesion": "Good",
+      "shrinkage": "Medium (0.5–0.7%)",
+      "density": "1.32 g/cm³"
+    }
+  },
+  {
+    "name": "PPS",
+    "tier": "C",
+    "temp": "~325°C",
+    "notes": "Excellent chemical resistance; difficult and expensive.",
+    "badges": [],
+    "use_cases": "Chemical/thermal demanding parts",
+    "enclosure": false,
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Medium",
+      "temperature_resistance": "200°C (continuous use)",
+      "flexibility": "Low",
+      "tensile_strength": "High",
+      "impact_resistance": "Moderate",
+      "chemical_resistance": "Very High",
+      "uv_resistance": "High",
+      "bed_temp": "120–140°C",
+      "print_speed": "Slow",
+      "layer_adhesion": "Good",
+      "shrinkage": "Medium (0.4–0.6%)",
+      "density": "1.35 g/cm³"
+    }
+  },
+  {
+    "name": "PES",
+    "tier": "C",
+    "temp": "~340°C",
+    "notes": "High-temperature resistance and mechanical strength; challenging to print.",
+    "badges": [],
+    "use_cases": "High-temperature engineering applications",
+    "enclosure": false,
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Medium",
+      "temperature_resistance": "200°C (continuous use)",
+      "flexibility": "Moderate",
+      "tensile_strength": "High",
+      "impact_resistance": "High",
+      "chemical_resistance": "Very High",
+      "uv_resistance": "High",
+      "bed_temp": "120–140°C",
+      "print_speed": "Slow",
+      "layer_adhesion": "Good",
+      "shrinkage": "Medium (0.5–0.7%)",
+      "density": "1.37 g/cm³"
+    }
+  },
+  {
+    "name": "PPSU",
+    "tier": "C",
+    "temp": "~340°C",
+    "notes": "Excellent thermal and chemical resistance; used in medical and aerospace applications.",
+    "badges": [],
+    "use_cases": "Medical and aerospace applications",
+    "enclosure": false,
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Medium",
+      "temperature_resistance": "200°C (continuous use)",
+      "flexibility": "Moderate",
+      "tensile_strength": "High",
+      "impact_resistance": "High",
+      "chemical_resistance": "Very High",
+      "uv_resistance": "High",
+      "bed_temp": "120–140°C",
+      "print_speed": "Slow",
+      "layer_adhesion": "Good",
+      "shrinkage": "Medium (0.5–0.7%)",
+      "density": "1.29 g/cm³"
+    }
+  },
+  {
+    "name": "Carbon Fiber PEEK (CF PEEK)",
+    "tier": "C",
+    "temp": "~400°C",
+    "notes": "PEEK reinforced with carbon fibers; extremely demanding but offers exceptional properties.",
+    "badges": [
+      "Requires hardened nozzle",
+      "Prefers enclosure"
+    ],
+    "use_cases": "Ultra-high performance engineering",
+    "enclosure": true,
+    "hygroscopic": false,
+    "specs": {
+      "warping": "High",
+      "temperature_resistance": "250°C (continuous use)",
+      "flexibility": "Very Low (extremely stiff)",
+      "tensile_strength": "Very High (enhanced by carbon fiber)",
+      "impact_resistance": "High",
+      "chemical_resistance": "Very High",
+      "uv_resistance": "High",
+      "bed_temp": "140–160°C",
+      "print_speed": "Very Slow",
+      "layer_adhesion": "Good",
+      "shrinkage": "Medium (0.5–0.7%)",
+      "density": "1.40–1.50 g/cm³"
     }
   },
   {
@@ -798,6 +1336,155 @@
     }
   },
   {
+    "name": "5x Metal-Filled PLA",
+    "tier": "F",
+    "temp": "210–250°C",
+    "notes": "PLA infused with metal powders (bronze, copper, steel, etc.); very abrasive and brittle.",
+    "badges": [
+      "Aesthetic",
+      "Requires hardened nozzle"
+    ],
+    "use_cases": "Decorative metallic finishes only",
+    "enclosure": false,
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Low-Medium",
+      "temperature_resistance": "60°C (glass transition)",
+      "flexibility": "Very Low (brittle)",
+      "tensile_strength": "Low (reduced vs base PLA)",
+      "impact_resistance": "Very Low",
+      "chemical_resistance": "Low",
+      "uv_resistance": "Low",
+      "bed_temp": "45–60°C",
+      "print_speed": "Slow",
+      "layer_adhesion": "Moderate",
+      "shrinkage": "Low (0.1–0.2%)",
+      "density": "2.50–8.00 g/cm³ (varies by metal)"
+    }
+  },
+  {
+    "name": "Non-clear PMMA",
+    "tier": "F",
+    "temp": "230–250°C",
+    "notes": "Opaque versions of acrylic; brittle and poor adhesion like clear PMMA.",
+    "badges": [
+      "Aesthetic"
+    ],
+    "use_cases": "Opaque aesthetic parts",
+    "enclosure": false,
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Medium",
+      "temperature_resistance": "80°C (glass transition)",
+      "flexibility": "Low (brittle)",
+      "tensile_strength": "Moderate",
+      "impact_resistance": "Low",
+      "chemical_resistance": "Moderate",
+      "uv_resistance": "High",
+      "bed_temp": "100–120°C",
+      "print_speed": "Moderate",
+      "layer_adhesion": "Poor",
+      "shrinkage": "Medium (0.4–0.6%)",
+      "density": "1.18–1.20 g/cm³"
+    }
+  },
+  {
+    "name": "TPE",
+    "tier": "F",
+    "temp": "200–230°C",
+    "notes": "Highly flexible thermoplastic elastomer; very challenging to print due to extreme elasticity.",
+    "badges": [],
+    "use_cases": "Not recommended for hobby FDM",
+    "enclosure": false,
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Low",
+      "temperature_resistance": "80°C",
+      "flexibility": "Very High (rubber-like)",
+      "tensile_strength": "Low",
+      "impact_resistance": "High",
+      "chemical_resistance": "Moderate",
+      "uv_resistance": "Moderate",
+      "bed_temp": "40–60°C",
+      "print_speed": "Very Slow",
+      "layer_adhesion": "Poor",
+      "shrinkage": "Low (0.1–0.3%)",
+      "density": "0.90–1.10 g/cm³"
+    }
+  },
+  {
+    "name": "Polypropylene (PP)",
+    "tier": "F",
+    "temp": "220–240°C",
+    "notes": "Light and durable but notorious for warp/adhesion issues.",
+    "badges": [],
+    "use_cases": "Not generally recommended for FDM",
+    "enclosure": false,
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Very High",
+      "temperature_resistance": "100°C (glass transition)",
+      "flexibility": "High",
+      "tensile_strength": "Moderate",
+      "impact_resistance": "High",
+      "chemical_resistance": "Very High",
+      "uv_resistance": "Low",
+      "bed_temp": "100–120°C",
+      "print_speed": "Moderate",
+      "layer_adhesion": "Very Poor",
+      "shrinkage": "Very High (1.0–1.5%)",
+      "density": "0.90–0.92 g/cm³"
+    }
+  },
+  {
+    "name": "HDPE",
+    "tier": "F",
+    "temp": "230–250°C",
+    "notes": "Extreme warping; very poor adhesion.",
+    "badges": [],
+    "use_cases": "Not generally recommended for FDM",
+    "enclosure": false,
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Extreme",
+      "temperature_resistance": "80°C (glass transition)",
+      "flexibility": "High",
+      "tensile_strength": "Moderate",
+      "impact_resistance": "High",
+      "chemical_resistance": "Very High",
+      "uv_resistance": "Low",
+      "bed_temp": "100–120°C",
+      "print_speed": "Slow",
+      "layer_adhesion": "Very Poor",
+      "shrinkage": "Extreme (1.5–2.0%)",
+      "density": "0.94–0.97 g/cm³"
+    }
+  },
+  {
+    "name": "POM (Acetal/Delrin)",
+    "tier": "F",
+    "temp": "220–240°C",
+    "notes": "Nearly zero bed adhesion; overheating risks toxic fumes.",
+    "badges": [],
+    "use_cases": "Not recommended for hobby FDM",
+    "enclosure": false,
+    "hygroscopic": false,
+    "specs": {
+      "warping": "High",
+      "temperature_resistance": "120°C (glass transition)",
+      "flexibility": "Low",
+      "tensile_strength": "High",
+      "impact_resistance": "Moderate",
+      "chemical_resistance": "High",
+      "uv_resistance": "Low",
+      "bed_temp": "130°C",
+      "print_speed": "Slow",
+      "layer_adhesion": "Very Poor",
+      "shrinkage": "High (0.8–1.0%)",
+      "density": "1.41–1.43 g/cm³"
+    }
+  },
+  {
     "name": "PVDF",
     "tier": "F",
     "temp": "260–280°C",
@@ -819,6 +1506,30 @@
       "layer_adhesion": "Good",
       "shrinkage": "Medium (0.4–0.6%)",
       "density": "1.78 g/cm³"
+    }
+  },
+  {
+    "name": "TPI (Kapton)",
+    "tier": "F",
+    "temp": "~450°C",
+    "notes": "Requires extreme temps; impractical on hobby machines.",
+    "badges": [],
+    "use_cases": "Specialized industrial setups only",
+    "enclosure": false,
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Medium",
+      "temperature_resistance": "400°C (continuous use)",
+      "flexibility": "Low",
+      "tensile_strength": "High",
+      "impact_resistance": "Moderate",
+      "chemical_resistance": "Very High",
+      "uv_resistance": "High",
+      "bed_temp": "200–250°C",
+      "print_speed": "Very Slow",
+      "layer_adhesion": "Good",
+      "shrinkage": "Low (0.2–0.4%)",
+      "density": "1.42 g/cm³"
     }
   }
 ]
