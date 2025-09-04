@@ -9,7 +9,21 @@
     ],
     "use_cases": "Precise and aesthetic prints",
     "enclosure": false,
-    "hygroscopic": false
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Low",
+      "temperature_resistance": "60°C (glass transition)",
+      "flexibility": "Low (stiff due to carbon fiber)",
+      "tensile_strength": "High (enhanced by carbon fiber)",
+      "impact_resistance": "Moderate",
+      "chemical_resistance": "Low",
+      "uv_resistance": "Low",
+      "bed_temp": "45–60°C",
+      "print_speed": "Moderate",
+      "layer_adhesion": "Good",
+      "shrinkage": "Low (0.1–0.2%)",
+      "density": "1.25–1.35 g/cm³"
+    }
   },
   {
     "name": "Tough PLA",
@@ -19,7 +33,21 @@
     "badges": [],
     "use_cases": "Light-duty functional parts",
     "enclosure": false,
-    "hygroscopic": false
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Low",
+      "temperature_resistance": "60°C (glass transition)",
+      "flexibility": "Low (brittle)",
+      "tensile_strength": "Moderate",
+      "impact_resistance": "High (enhanced vs standard PLA)",
+      "chemical_resistance": "Low",
+      "uv_resistance": "Low",
+      "bed_temp": "45–60°C",
+      "print_speed": "Fast",
+      "layer_adhesion": "Good",
+      "shrinkage": "Low (0.1–0.2%)",
+      "density": "1.20–1.25 g/cm³"
+    }
   },
   {
     "name": "High-Speed PLA",
@@ -29,7 +57,21 @@
     "badges": [],
     "use_cases": "Rapid prototyping",
     "enclosure": false,
-    "hygroscopic": false
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Low",
+      "temperature_resistance": "60°C (glass transition)",
+      "flexibility": "Low (brittle)",
+      "tensile_strength": "Moderate",
+      "impact_resistance": "Low",
+      "chemical_resistance": "Low",
+      "uv_resistance": "Low",
+      "bed_temp": "45–60°C",
+      "print_speed": "Very Fast",
+      "layer_adhesion": "Good",
+      "shrinkage": "Low (0.1–0.2%)",
+      "density": "1.20–1.25 g/cm³"
+    }
   },
   {
     "name": "TPU (High Durometer)",
@@ -39,7 +81,21 @@
     "badges": [],
     "use_cases": "Impact-heavy parts (e.g., combat robotics)",
     "enclosure": false,
-    "hygroscopic": false
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Low",
+      "temperature_resistance": "80°C",
+      "flexibility": "High (Shore 85A-95A)",
+      "tensile_strength": "High",
+      "impact_resistance": "Very High",
+      "chemical_resistance": "Moderate",
+      "uv_resistance": "Moderate",
+      "bed_temp": "40–60°C",
+      "print_speed": "Slow",
+      "layer_adhesion": "Excellent",
+      "shrinkage": "Low (0.1–0.3%)",
+      "density": "1.10–1.25 g/cm³"
+    }
   },
   {
     "name": "PCTG",
@@ -49,7 +105,21 @@
     "badges": [],
     "use_cases": "Durable functional parts",
     "enclosure": false,
-    "hygroscopic": false
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Low",
+      "temperature_resistance": "85°C (glass transition)",
+      "flexibility": "Moderate-High",
+      "tensile_strength": "High",
+      "impact_resistance": "High",
+      "chemical_resistance": "High",
+      "uv_resistance": "High",
+      "bed_temp": "70–85°C",
+      "print_speed": "Moderate",
+      "layer_adhesion": "Excellent",
+      "shrinkage": "Low (0.2–0.4%)",
+      "density": "1.27 g/cm³"
+    }
   },
   {
     "name": "PLA",
@@ -59,7 +129,21 @@
     "badges": [],
     "use_cases": "General models and prototypes",
     "enclosure": false,
-    "hygroscopic": false
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Low",
+      "temperature_resistance": "60°C (glass transition)",
+      "flexibility": "Low (brittle)",
+      "tensile_strength": "Moderate",
+      "impact_resistance": "Low",
+      "chemical_resistance": "Low",
+      "uv_resistance": "Low",
+      "bed_temp": "45–60°C",
+      "print_speed": "Fast",
+      "layer_adhesion": "Good",
+      "shrinkage": "Low (0.1–0.2%)",
+      "density": "1.20–1.25 g/cm³"
+    }
   },
   {
     "name": "PETG",
@@ -71,7 +155,21 @@
     ],
     "use_cases": "Functional prototypes",
     "enclosure": false,
-    "hygroscopic": true
+    "hygroscopic": true,
+    "specs": {
+      "warping": "Low-Medium",
+      "temperature_resistance": "85°C (glass transition)",
+      "flexibility": "Moderate",
+      "tensile_strength": "High",
+      "impact_resistance": "High",
+      "chemical_resistance": "High",
+      "uv_resistance": "Moderate",
+      "bed_temp": "70–90°C",
+      "print_speed": "Moderate",
+      "layer_adhesion": "Excellent",
+      "shrinkage": "Low (0.2–0.4%)",
+      "density": "1.27 g/cm³"
+    }
   },
   {
     "name": "Carbon Fiber PETG (CF PETG)",
@@ -83,7 +181,21 @@
     ],
     "use_cases": "Stiff functional parts",
     "enclosure": false,
-    "hygroscopic": false
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Low",
+      "temperature_resistance": "85°C (glass transition)",
+      "flexibility": "Low (stiff due to carbon fiber)",
+      "tensile_strength": "Very High (enhanced by carbon fiber)",
+      "impact_resistance": "High",
+      "chemical_resistance": "High",
+      "uv_resistance": "Moderate",
+      "bed_temp": "70–90°C",
+      "print_speed": "Moderate",
+      "layer_adhesion": "Excellent",
+      "shrinkage": "Low (0.1–0.3%)",
+      "density": "1.35–1.45 g/cm³"
+    }
   },
   {
     "name": "ASA",
@@ -93,7 +205,21 @@
     "badges": [],
     "use_cases": "Outdoor parts",
     "enclosure": false,
-    "hygroscopic": false
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Medium",
+      "temperature_resistance": "110°C (glass transition)",
+      "flexibility": "Moderate",
+      "tensile_strength": "High",
+      "impact_resistance": "High",
+      "chemical_resistance": "Moderate",
+      "uv_resistance": "Very High",
+      "bed_temp": "90–100°C",
+      "print_speed": "Moderate",
+      "layer_adhesion": "Good",
+      "shrinkage": "Medium (0.4–0.6%)",
+      "density": "1.05–1.10 g/cm³"
+    }
   },
   {
     "name": "PC PBT (Polycarbonate/PBT blend)",
@@ -103,7 +229,21 @@
     "badges": [],
     "use_cases": "Functional parts used in cooler environments",
     "enclosure": false,
-    "hygroscopic": false
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Medium",
+      "temperature_resistance": "120°C (glass transition)",
+      "flexibility": "Moderate",
+      "tensile_strength": "High",
+      "impact_resistance": "High",
+      "chemical_resistance": "Very High",
+      "uv_resistance": "Moderate",
+      "bed_temp": "100–120°C",
+      "print_speed": "Moderate",
+      "layer_adhesion": "Good",
+      "shrinkage": "Medium (0.5–0.7%)",
+      "density": "1.20–1.25 g/cm³"
+    }
   },
   {
     "name": "Polycarbonate (PC)",
@@ -115,7 +255,21 @@
     ],
     "use_cases": "High-strength applications",
     "enclosure": true,
-    "hygroscopic": false
+    "hygroscopic": false,
+    "specs": {
+      "warping": "High",
+      "temperature_resistance": "150°C (glass transition)",
+      "flexibility": "Moderate",
+      "tensile_strength": "Very High",
+      "impact_resistance": "Very High",
+      "chemical_resistance": "High",
+      "uv_resistance": "Moderate",
+      "bed_temp": "100–115°C",
+      "print_speed": "Slow",
+      "layer_adhesion": "Good",
+      "shrinkage": "High (0.6–0.8%)",
+      "density": "1.20 g/cm³"
+    }
   },
   {
     "name": "PEKK",
@@ -125,7 +279,21 @@
     "badges": [],
     "use_cases": "Engineering parts needing chemical resistance",
     "enclosure": false,
-    "hygroscopic": false
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Medium",
+      "temperature_resistance": "250°C (continuous use)",
+      "flexibility": "Low",
+      "tensile_strength": "Very High",
+      "impact_resistance": "High",
+      "chemical_resistance": "Very High",
+      "uv_resistance": "High",
+      "bed_temp": "120–140°C",
+      "print_speed": "Slow",
+      "layer_adhesion": "Good",
+      "shrinkage": "Medium (0.4–0.6%)",
+      "density": "1.30 g/cm³"
+    }
   },
   {
     "name": "SEBS",
@@ -135,7 +303,21 @@
     "badges": [],
     "use_cases": "Flexible components",
     "enclosure": false,
-    "hygroscopic": false
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Low",
+      "temperature_resistance": "80°C",
+      "flexibility": "Very High (rubber-like)",
+      "tensile_strength": "Moderate",
+      "impact_resistance": "High",
+      "chemical_resistance": "High",
+      "uv_resistance": "Moderate",
+      "bed_temp": "50–70°C",
+      "print_speed": "Slow",
+      "layer_adhesion": "Good",
+      "shrinkage": "Low (0.2–0.4%)",
+      "density": "0.90–1.00 g/cm³"
+    }
   },
   {
     "name": "PSU (Polysulfone)",
@@ -145,7 +327,21 @@
     "badges": [],
     "use_cases": "High-temp functional parts",
     "enclosure": false,
-    "hygroscopic": false
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Medium",
+      "temperature_resistance": "180°C (glass transition)",
+      "flexibility": "Moderate",
+      "tensile_strength": "High",
+      "impact_resistance": "High",
+      "chemical_resistance": "Very High",
+      "uv_resistance": "High",
+      "bed_temp": "120–140°C",
+      "print_speed": "Slow",
+      "layer_adhesion": "Good",
+      "shrinkage": "Medium (0.5–0.7%)",
+      "density": "1.24 g/cm³"
+    }
   },
   {
     "name": "Silk PLA",
@@ -157,7 +353,21 @@
     ],
     "use_cases": "Display pieces",
     "enclosure": false,
-    "hygroscopic": false
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Low",
+      "temperature_resistance": "60°C (glass transition)",
+      "flexibility": "Low (brittle)",
+      "tensile_strength": "Low (reduced vs standard PLA)",
+      "impact_resistance": "Low",
+      "chemical_resistance": "Low",
+      "uv_resistance": "Low",
+      "bed_temp": "45–60°C",
+      "print_speed": "Moderate",
+      "layer_adhesion": "Moderate",
+      "shrinkage": "Low (0.1–0.2%)",
+      "density": "1.20–1.25 g/cm³"
+    }
   },
   {
     "name": "Wood PLA",
@@ -169,7 +379,21 @@
     ],
     "use_cases": "Decorative prints",
     "enclosure": false,
-    "hygroscopic": true
+    "hygroscopic": true,
+    "specs": {
+      "warping": "Low",
+      "temperature_resistance": "60°C (glass transition)",
+      "flexibility": "Low (brittle)",
+      "tensile_strength": "Low (reduced vs standard PLA)",
+      "impact_resistance": "Low",
+      "chemical_resistance": "Low",
+      "uv_resistance": "Low",
+      "bed_temp": "45–60°C",
+      "print_speed": "Slow (larger nozzle recommended)",
+      "layer_adhesion": "Moderate",
+      "shrinkage": "Low (0.1–0.2%)",
+      "density": "1.20–1.30 g/cm³"
+    }
   },
   {
     "name": "Carbon Fiber PC (CF PC)",
@@ -182,7 +406,21 @@
     ],
     "use_cases": "High-temp stiff parts",
     "enclosure": true,
-    "hygroscopic": false
+    "hygroscopic": false,
+    "specs": {
+      "warping": "High",
+      "temperature_resistance": "150°C (glass transition)",
+      "flexibility": "Very Low (extremely stiff)",
+      "tensile_strength": "Very High (enhanced by carbon fiber)",
+      "impact_resistance": "High",
+      "chemical_resistance": "High",
+      "uv_resistance": "Moderate",
+      "bed_temp": "120–140°C",
+      "print_speed": "Very Slow",
+      "layer_adhesion": "Good",
+      "shrinkage": "High (0.6–0.8%)",
+      "density": "1.35–1.45 g/cm³"
+    }
   },
   {
     "name": "HIPS",
@@ -192,7 +430,21 @@
     "badges": [],
     "use_cases": "Soluble supports or lightweight parts",
     "enclosure": false,
-    "hygroscopic": false
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Medium",
+      "temperature_resistance": "100°C (glass transition)",
+      "flexibility": "Moderate",
+      "tensile_strength": "Moderate",
+      "impact_resistance": "High",
+      "chemical_resistance": "Low (dissolves in limonene)",
+      "uv_resistance": "Low",
+      "bed_temp": "50–100°C",
+      "print_speed": "Moderate",
+      "layer_adhesion": "Good",
+      "shrinkage": "Medium (0.4–0.6%)",
+      "density": "1.04–1.08 g/cm³"
+    }
   },
   {
     "name": "PET (Bottle-grade)",
@@ -204,7 +456,21 @@
     ],
     "use_cases": "High-stiffness parts (with capable printers)",
     "enclosure": true,
-    "hygroscopic": false
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Medium",
+      "temperature_resistance": "85°C (glass transition)",
+      "flexibility": "Low (stiffer than PETG)",
+      "tensile_strength": "High",
+      "impact_resistance": "Moderate",
+      "chemical_resistance": "High",
+      "uv_resistance": "Moderate",
+      "bed_temp": "80–100°C",
+      "print_speed": "Slow",
+      "layer_adhesion": "Good",
+      "shrinkage": "Medium (0.3–0.5%)",
+      "density": "1.38 g/cm³"
+    }
   },
   {
     "name": "PA6 Nylon",
@@ -217,7 +483,21 @@
     ],
     "use_cases": "Functional parts where toughness matters",
     "enclosure": true,
-    "hygroscopic": true
+    "hygroscopic": true,
+    "specs": {
+      "warping": "High",
+      "temperature_resistance": "120°C (glass transition)",
+      "flexibility": "High",
+      "tensile_strength": "High",
+      "impact_resistance": "Very High",
+      "chemical_resistance": "High",
+      "uv_resistance": "Low",
+      "bed_temp": "70–100°C",
+      "print_speed": "Moderate",
+      "layer_adhesion": "Good",
+      "shrinkage": "High (0.7–1.0%)",
+      "density": "1.13–1.15 g/cm³"
+    }
   },
   {
     "name": "Glass-Filled PP (GF PP)",
@@ -227,7 +507,21 @@
     "badges": [],
     "use_cases": "Outdoor/automotive style parts (with tuned setup)",
     "enclosure": false,
-    "hygroscopic": false
+    "hygroscopic": false,
+    "specs": {
+      "warping": "High",
+      "temperature_resistance": "100°C (glass transition)",
+      "flexibility": "High",
+      "tensile_strength": "High (enhanced by glass fibers)",
+      "impact_resistance": "High",
+      "chemical_resistance": "Very High",
+      "uv_resistance": "High",
+      "bed_temp": "100–120°C",
+      "print_speed": "Moderate",
+      "layer_adhesion": "Poor (requires special bed)",
+      "shrinkage": "High (0.8–1.2%)",
+      "density": "1.00–1.10 g/cm³"
+    }
   },
   {
     "name": "TPU (Low Durometer)",
@@ -237,7 +531,21 @@
     "badges": [],
     "use_cases": "Highly flexible parts (if printer supports)",
     "enclosure": false,
-    "hygroscopic": false
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Low",
+      "temperature_resistance": "80°C",
+      "flexibility": "Very High (Shore 60A-80A)",
+      "tensile_strength": "Moderate",
+      "impact_resistance": "High",
+      "chemical_resistance": "Moderate",
+      "uv_resistance": "Moderate",
+      "bed_temp": "40–60°C",
+      "print_speed": "Very Slow",
+      "layer_adhesion": "Excellent",
+      "shrinkage": "Low (0.1–0.3%)",
+      "density": "1.10–1.20 g/cm³"
+    }
   },
   {
     "name": "Polypropylene (PP)",
@@ -247,7 +555,21 @@
     "badges": [],
     "use_cases": "Containers/hinges if you can tame it",
     "enclosure": false,
-    "hygroscopic": false
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Very High",
+      "temperature_resistance": "100°C (glass transition)",
+      "flexibility": "High",
+      "tensile_strength": "Moderate",
+      "impact_resistance": "High",
+      "chemical_resistance": "Very High",
+      "uv_resistance": "Low",
+      "bed_temp": "100–120°C",
+      "print_speed": "Moderate",
+      "layer_adhesion": "Very Poor",
+      "shrinkage": "Very High (1.0–1.5%)",
+      "density": "0.90–0.92 g/cm³"
+    }
   },
   {
     "name": "OBC (Olefin Block Copolymer)",
@@ -257,7 +579,21 @@
     "badges": [],
     "use_cases": "Tough parts if adhesion handled",
     "enclosure": false,
-    "hygroscopic": false
+    "hygroscopic": false,
+    "specs": {
+      "warping": "High",
+      "temperature_resistance": "100°C (glass transition)",
+      "flexibility": "High",
+      "tensile_strength": "Moderate-High",
+      "impact_resistance": "High",
+      "chemical_resistance": "High",
+      "uv_resistance": "Moderate",
+      "bed_temp": "80–100°C",
+      "print_speed": "Moderate",
+      "layer_adhesion": "Poor",
+      "shrinkage": "High (0.8–1.2%)",
+      "density": "0.95–1.00 g/cm³"
+    }
   },
   {
     "name": "PEEK",
@@ -269,7 +605,21 @@
     ],
     "use_cases": "High-end engineering with specialized printers",
     "enclosure": true,
-    "hygroscopic": false
+    "hygroscopic": false,
+    "specs": {
+      "warping": "High",
+      "temperature_resistance": "250°C (continuous use)",
+      "flexibility": "Low",
+      "tensile_strength": "Very High",
+      "impact_resistance": "High",
+      "chemical_resistance": "Very High",
+      "uv_resistance": "High",
+      "bed_temp": "140–160°C",
+      "print_speed": "Very Slow",
+      "layer_adhesion": "Good",
+      "shrinkage": "Medium (0.5–0.7%)",
+      "density": "1.32 g/cm³"
+    }
   },
   {
     "name": "PPS",
@@ -279,7 +629,21 @@
     "badges": [],
     "use_cases": "Chemical/thermal demanding parts",
     "enclosure": false,
-    "hygroscopic": false
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Medium",
+      "temperature_resistance": "200°C (continuous use)",
+      "flexibility": "Low",
+      "tensile_strength": "High",
+      "impact_resistance": "Moderate",
+      "chemical_resistance": "Very High",
+      "uv_resistance": "High",
+      "bed_temp": "120–140°C",
+      "print_speed": "Slow",
+      "layer_adhesion": "Good",
+      "shrinkage": "Medium (0.4–0.6%)",
+      "density": "1.35 g/cm³"
+    }
   },
   {
     "name": "Glass-Filled Nylon (GFPA)",
@@ -292,7 +656,21 @@
     ],
     "use_cases": "Tough structural parts",
     "enclosure": true,
-    "hygroscopic": false
+    "hygroscopic": false,
+    "specs": {
+      "warping": "High",
+      "temperature_resistance": "120°C (glass transition)",
+      "flexibility": "Low (stiff due to glass fibers)",
+      "tensile_strength": "Very High (enhanced by glass fibers)",
+      "impact_resistance": "High",
+      "chemical_resistance": "High",
+      "uv_resistance": "Moderate",
+      "bed_temp": "100–120°C",
+      "print_speed": "Slow",
+      "layer_adhesion": "Good",
+      "shrinkage": "High (0.6–0.8%)",
+      "density": "1.20–1.30 g/cm³"
+    }
   },
   {
     "name": "PMMA (Acrylic)",
@@ -304,7 +682,21 @@
     ],
     "use_cases": "Transparent display parts",
     "enclosure": false,
-    "hygroscopic": false
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Medium",
+      "temperature_resistance": "80°C (glass transition)",
+      "flexibility": "Low (brittle)",
+      "tensile_strength": "Moderate",
+      "impact_resistance": "Low",
+      "chemical_resistance": "Moderate",
+      "uv_resistance": "High",
+      "bed_temp": "100–120°C",
+      "print_speed": "Moderate",
+      "layer_adhesion": "Poor",
+      "shrinkage": "Medium (0.4–0.6%)",
+      "density": "1.18–1.20 g/cm³"
+    }
   },
   {
     "name": "Metal-Filled Composites",
@@ -317,7 +709,21 @@
     ],
     "use_cases": "One-off show pieces",
     "enclosure": false,
-    "hygroscopic": false
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Low-Medium",
+      "temperature_resistance": "60°C (glass transition)",
+      "flexibility": "Very Low (brittle)",
+      "tensile_strength": "Low (reduced vs base material)",
+      "impact_resistance": "Very Low",
+      "chemical_resistance": "Low",
+      "uv_resistance": "Low",
+      "bed_temp": "45–60°C",
+      "print_speed": "Slow",
+      "layer_adhesion": "Moderate",
+      "shrinkage": "Low (0.1–0.2%)",
+      "density": "2.50–8.00 g/cm³ (varies by metal)"
+    }
   },
   {
     "name": "HDPE",
@@ -327,7 +733,21 @@
     "badges": [],
     "use_cases": "Not generally recommended for FDM",
     "enclosure": false,
-    "hygroscopic": false
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Extreme",
+      "temperature_resistance": "80°C (glass transition)",
+      "flexibility": "High",
+      "tensile_strength": "Moderate",
+      "impact_resistance": "High",
+      "chemical_resistance": "Very High",
+      "uv_resistance": "Low",
+      "bed_temp": "100–120°C",
+      "print_speed": "Slow",
+      "layer_adhesion": "Very Poor",
+      "shrinkage": "Extreme (1.5–2.0%)",
+      "density": "0.94–0.97 g/cm³"
+    }
   },
   {
     "name": "POM (Acetal/Delrin)",
@@ -337,7 +757,21 @@
     "badges": [],
     "use_cases": "Not recommended for hobby FDM",
     "enclosure": false,
-    "hygroscopic": false
+    "hygroscopic": false,
+    "specs": {
+      "warping": "High",
+      "temperature_resistance": "120°C (glass transition)",
+      "flexibility": "Low",
+      "tensile_strength": "High",
+      "impact_resistance": "Moderate",
+      "chemical_resistance": "High",
+      "uv_resistance": "Low",
+      "bed_temp": "130°C",
+      "print_speed": "Slow",
+      "layer_adhesion": "Very Poor",
+      "shrinkage": "High (0.8–1.0%)",
+      "density": "1.41–1.43 g/cm³"
+    }
   },
   {
     "name": "TPI (Kapton)",
@@ -347,7 +781,21 @@
     "badges": [],
     "use_cases": "Specialized industrial setups only",
     "enclosure": false,
-    "hygroscopic": false
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Medium",
+      "temperature_resistance": "400°C (continuous use)",
+      "flexibility": "Low",
+      "tensile_strength": "High",
+      "impact_resistance": "Moderate",
+      "chemical_resistance": "Very High",
+      "uv_resistance": "High",
+      "bed_temp": "200–250°C",
+      "print_speed": "Very Slow",
+      "layer_adhesion": "Good",
+      "shrinkage": "Low (0.2–0.4%)",
+      "density": "1.42 g/cm³"
+    }
   },
   {
     "name": "PVDF",
@@ -357,6 +805,20 @@
     "badges": [],
     "use_cases": "Niche chemical-resistance needs with capable machines",
     "enclosure": false,
-    "hygroscopic": false
+    "hygroscopic": false,
+    "specs": {
+      "warping": "Medium",
+      "temperature_resistance": "150°C (glass transition)",
+      "flexibility": "Moderate",
+      "tensile_strength": "High",
+      "impact_resistance": "High",
+      "chemical_resistance": "Very High",
+      "uv_resistance": "High",
+      "bed_temp": "120–140°C",
+      "print_speed": "Slow",
+      "layer_adhesion": "Good",
+      "shrinkage": "Medium (0.4–0.6%)",
+      "density": "1.78 g/cm³"
+    }
   }
 ]

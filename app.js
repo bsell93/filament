@@ -68,10 +68,70 @@ function render(data){
     if (f.enclosure)    badgeSet.add('Prefers enclosure');
     if (f.hygroscopic)  badgeSet.add('Moisture sensitive');
     Array.from(badgeSet).forEach(b => badges.appendChild(makeBadge(b)));
+
     card.appendChild(name);
     card.appendChild(meta);
     card.appendChild(notes);
     card.appendChild(badges);
+
+    // Add specifications section after badges
+    if (f.specs) {
+      const specsToggle = document.createElement('button');
+      specsToggle.className = 'specs-toggle';
+      specsToggle.textContent = 'Show Specifications';
+      specsToggle.addEventListener('click', () => {
+        const specsContent = card.querySelector('.specs-content');
+        const isVisible = specsContent.style.display !== 'none';
+        specsContent.style.display = isVisible ? 'none' : 'block';
+        specsToggle.textContent = isVisible ? 'Show Specifications' : 'Hide Specifications';
+      });
+
+      const specsContent = document.createElement('div');
+      specsContent.className = 'specs-content';
+      specsContent.style.display = 'none';
+      
+      const specsGrid = document.createElement('div');
+      specsGrid.className = 'specs-grid';
+      
+      // Create specification items
+      const specItems = [
+        { key: 'warping', label: 'Warping' },
+        { key: 'temperature_resistance', label: 'Temperature Resistance' },
+        { key: 'flexibility', label: 'Flexibility' },
+        { key: 'tensile_strength', label: 'Tensile Strength' },
+        { key: 'impact_resistance', label: 'Impact Resistance' },
+        { key: 'chemical_resistance', label: 'Chemical Resistance' },
+        { key: 'uv_resistance', label: 'UV Resistance' },
+        { key: 'bed_temp', label: 'Bed Temperature' },
+        { key: 'print_speed', label: 'Print Speed' },
+        { key: 'layer_adhesion', label: 'Layer Adhesion' },
+        { key: 'shrinkage', label: 'Shrinkage' },
+        { key: 'density', label: 'Density' }
+      ];
+
+      specItems.forEach(item => {
+        if (f.specs[item.key]) {
+          const specItem = document.createElement('div');
+          specItem.className = 'spec-item';
+          
+          const specLabel = document.createElement('span');
+          specLabel.className = 'spec-label';
+          specLabel.textContent = item.label + ':';
+          
+          const specValue = document.createElement('span');
+          specValue.className = 'spec-value';
+          specValue.textContent = f.specs[item.key];
+          
+          specItem.appendChild(specLabel);
+          specItem.appendChild(specValue);
+          specsGrid.appendChild(specItem);
+        }
+      });
+
+      specsContent.appendChild(specsGrid);
+      card.appendChild(specsToggle);
+      card.appendChild(specsContent);
+    }
     grid.appendChild(card);
   });
 }
@@ -89,7 +149,14 @@ function setupFilters(allData){
     const text = q.value.trim().toLowerCase();
     let filtered = allData.filter(f => tiers.has(f.tier));
     if(text){
-      filtered = filtered.filter(f => (f.name + ' ' + f.notes + ' ' + (f.use_cases||'') + ' ' + (f.badges||[]).join(' ')).toLowerCase().includes(text));
+      const searchText = f => {
+        let text = f.name + ' ' + f.notes + ' ' + (f.use_cases||'') + ' ' + (f.badges||[]).join(' ');
+        if (f.specs) {
+          text += ' ' + Object.values(f.specs).join(' ');
+        }
+        return text.toLowerCase();
+      };
+      filtered = filtered.filter(f => searchText(f).includes(text));
     }
     if(flagEnclosure.checked) filtered = filtered.filter(f => f.enclosure || (f.badges||[]).some(b => /enclosure/i.test(b)));
     if(flagHardened.checked)  filtered = filtered.filter(f => (f.badges||[]).some(b => /hardened/i.test(b)));
