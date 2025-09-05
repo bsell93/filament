@@ -79,6 +79,24 @@ function saveCurrentState() {
     otherFilters: {
       professionalOnly: document.getElementById('flag-professional-only').checked,
       popularMaterials: document.getElementById('flag-popular-materials').checked
+    },
+    specFilters: {
+      flexible: document.getElementById('spec-flexible').checked,
+      strong: document.getElementById('spec-strong').checked,
+      highImpact: document.getElementById('spec-high-impact').checked,
+      lowWarping: document.getElementById('spec-low-warping').checked,
+      highTemp: document.getElementById('spec-high-temp').checked,
+      fastPrint: document.getElementById('spec-fast-print').checked,
+      easyPrint: document.getElementById('spec-easy-print').checked,
+      goodSurface: document.getElementById('spec-good-surface').checked,
+      lowToxicity: document.getElementById('spec-low-toxicity').checked,
+      lowVoc: document.getElementById('spec-low-voc').checked,
+      biodegradable: document.getElementById('spec-biodegradable').checked,
+      recyclable: document.getElementById('spec-recyclable').checked,
+      foodSafe: document.getElementById('spec-food-safe').checked,
+      medicalGrade: document.getElementById('spec-medical-grade').checked,
+      conductive: document.getElementById('spec-conductive').checked,
+      uvResistant: document.getElementById('spec-uv-resistant').checked
     }
   };
   
@@ -163,6 +181,14 @@ function loadSavedState() {
   if (filterState.otherFilters) {
     Object.entries(filterState.otherFilters).forEach(([key, checked]) => {
       const element = document.getElementById(`flag-${key.replace(/([A-Z])/g, '-$1').toLowerCase()}`);
+      if (element) element.checked = checked;
+    });
+  }
+  
+  // Load spec filters
+  if (filterState.specFilters) {
+    Object.entries(filterState.specFilters).forEach(([key, checked]) => {
+      const element = document.getElementById(`spec-${key.replace(/([A-Z])/g, '-$1').toLowerCase()}`);
       if (element) element.checked = checked;
     });
   }
@@ -1199,6 +1225,24 @@ function setupFilters(allData){
   const flagPrototyping = document.getElementById('flag-prototyping');
   const flagOutdoor = document.getElementById('flag-outdoor');
   
+  // Spec filters
+  const specFlexible = document.getElementById('spec-flexible');
+  const specStrong = document.getElementById('spec-strong');
+  const specHighImpact = document.getElementById('spec-high-impact');
+  const specLowWarping = document.getElementById('spec-low-warping');
+  const specHighTemp = document.getElementById('spec-high-temp');
+  const specFastPrint = document.getElementById('spec-fast-print');
+  const specEasyPrint = document.getElementById('spec-easy-print');
+  const specGoodSurface = document.getElementById('spec-good-surface');
+  const specLowToxicity = document.getElementById('spec-low-toxicity');
+  const specLowVoc = document.getElementById('spec-low-voc');
+  const specBiodegradable = document.getElementById('spec-biodegradable');
+  const specRecyclable = document.getElementById('spec-recyclable');
+  const specFoodSafe = document.getElementById('spec-food-safe');
+  const specMedicalGrade = document.getElementById('spec-medical-grade');
+  const specConductive = document.getElementById('spec-conductive');
+  const specUvResistant = document.getElementById('spec-uv-resistant');
+  
   // Other filters
   const flagProfessionalOnly = document.getElementById('flag-professional-only');
   const flagPopularMaterials = document.getElementById('flag-popular-materials');
@@ -1341,6 +1385,104 @@ function setupFilters(allData){
     }
   }
 
+  // Helper functions for spec-based filtering
+  function hasHighFlexibility(filament) {
+    if (!filament.specs || !filament.specs.flexibility) return false;
+    const flex = filament.specs.flexibility.toLowerCase();
+    return flex.includes('high') || flex.includes('very high') || flex.includes('rubber-like');
+  }
+
+  function hasHighStrength(filament) {
+    if (!filament.specs || !filament.specs.tensile_strength) return false;
+    const strength = filament.specs.tensile_strength.toLowerCase();
+    return strength.includes('high') || strength.includes('very high');
+  }
+
+  function hasHighImpactResistance(filament) {
+    if (!filament.specs || !filament.specs.impact_resistance) return false;
+    const impact = filament.specs.impact_resistance.toLowerCase();
+    return impact.includes('high') || impact.includes('very high');
+  }
+
+  function hasLowWarping(filament) {
+    if (!filament.specs || !filament.specs.warping) return false;
+    const warping = filament.specs.warping.toLowerCase();
+    return warping.includes('low') || warping.includes('very low');
+  }
+
+  function hasHighTemperatureResistance(filament) {
+    if (!filament.specs || !filament.specs.temperature_resistance) return false;
+    const temp = filament.specs.temperature_resistance.toLowerCase();
+    return temp.includes('high') || temp.includes('very high') || 
+           (temp.includes('°c') && parseInt(temp.match(/(\d+)°c/)?.[1]) > 100);
+  }
+
+  function hasFastPrinting(filament) {
+    if (!filament.specs || !filament.specs.print_speed) return false;
+    const speed = filament.specs.print_speed.toLowerCase();
+    return speed.includes('fast') || speed.includes('very fast');
+  }
+
+  function hasEasyPrinting(filament) {
+    if (!filament.specs || !filament.specs.ease_of_printing) return false;
+    const ease = filament.specs.ease_of_printing.toLowerCase();
+    return ease.includes('high') || ease.includes('very high') || ease.includes('beginner') || ease.includes('easy');
+  }
+
+  function hasHighSurfaceQuality(filament) {
+    if (!filament.specs || !filament.specs.surface_quality) return false;
+    const quality = filament.specs.surface_quality.toLowerCase();
+    return quality.includes('high') || quality.includes('very high') || quality.includes('excellent') || quality.includes('smooth');
+  }
+
+  function hasLowToxicity(filament) {
+    if (!filament.specs || !filament.specs.toxicity) return false;
+    const toxicity = filament.specs.toxicity.toLowerCase();
+    return toxicity.includes('low') || toxicity.includes('very low');
+  }
+
+  function hasLowVocEmissions(filament) {
+    if (!filament.specs || !filament.specs.voc_emissions) return false;
+    const voc = filament.specs.voc_emissions.toLowerCase();
+    return voc.includes('low') || voc.includes('very low');
+  }
+
+  function isBiodegradable(filament) {
+    if (!filament.specs || !filament.specs.biodegradability) return false;
+    const bio = filament.specs.biodegradability.toLowerCase();
+    return bio.includes('high') || bio.includes('yes') || bio.includes('biodegradable');
+  }
+
+  function isRecyclable(filament) {
+    if (!filament.specs || !filament.specs.recyclability) return false;
+    const recycle = filament.specs.recyclability.toLowerCase();
+    return recycle.includes('yes') || recycle.includes('recyclable');
+  }
+
+  function isFoodSafe(filament) {
+    if (!filament.specs || !filament.specs.food_safety) return false;
+    const food = filament.specs.food_safety.toLowerCase();
+    return food.includes('safe') || food.includes('yes') || food.includes('food safe');
+  }
+
+  function isMedicalGrade(filament) {
+    if (!filament.specs || !filament.specs.medical_grade) return false;
+    const medical = filament.specs.medical_grade.toLowerCase();
+    return medical.includes('yes') || medical.includes('medical') || medical.includes('grade');
+  }
+
+  function isElectricallyConductive(filament) {
+    if (!filament.specs || !filament.specs.electrical_conductivity) return false;
+    const electrical = filament.specs.electrical_conductivity.toLowerCase();
+    return electrical.includes('conductive') || electrical.includes('conducting');
+  }
+
+  function isUvResistant(filament) {
+    if (!filament.specs || !filament.specs.uv_resistance) return false;
+    const uv = filament.specs.uv_resistance.toLowerCase();
+    return uv.includes('high') || uv.includes('very high') || uv.includes('excellent');
+  }
+
   function apply(){
     const tiers = new Set(tierChecks.filter(c=>c.checked).map(c=>c.value));
     const text = q.value.trim().toLowerCase();
@@ -1412,6 +1554,29 @@ function setupFilters(allData){
       filtered = filtered.filter(f => useCaseFilters.some(filter => filter(f)));
     }
     
+    // Spec filters (OR logic within group)
+    const specFilters = [];
+    if(specFlexible.checked) specFilters.push(f => hasHighFlexibility(f));
+    if(specStrong.checked) specFilters.push(f => hasHighStrength(f));
+    if(specHighImpact.checked) specFilters.push(f => hasHighImpactResistance(f));
+    if(specLowWarping.checked) specFilters.push(f => hasLowWarping(f));
+    if(specHighTemp.checked) specFilters.push(f => hasHighTemperatureResistance(f));
+    if(specFastPrint.checked) specFilters.push(f => hasFastPrinting(f));
+    if(specEasyPrint.checked) specFilters.push(f => hasEasyPrinting(f));
+    if(specGoodSurface.checked) specFilters.push(f => hasHighSurfaceQuality(f));
+    if(specLowToxicity.checked) specFilters.push(f => hasLowToxicity(f));
+    if(specLowVoc.checked) specFilters.push(f => hasLowVocEmissions(f));
+    if(specBiodegradable.checked) specFilters.push(f => isBiodegradable(f));
+    if(specRecyclable.checked) specFilters.push(f => isRecyclable(f));
+    if(specFoodSafe.checked) specFilters.push(f => isFoodSafe(f));
+    if(specMedicalGrade.checked) specFilters.push(f => isMedicalGrade(f));
+    if(specConductive.checked) specFilters.push(f => isElectricallyConductive(f));
+    if(specUvResistant.checked) specFilters.push(f => isUvResistant(f));
+    
+    if (specFilters.length > 0) {
+      filtered = filtered.filter(f => specFilters.some(filter => filter(f)));
+    }
+
     // Other filters (OR logic within group)
     const otherFilters = [];
     if(flagProfessionalOnly.checked) otherFilters.push(f => requiresProfessionalEquipment(f));
@@ -1437,6 +1602,11 @@ function setupFilters(allData){
     flagEnclosure, flagHardened, flagHygro,
     // Use case filters
     flagAesthetic, flagFunctional, flagPrototyping, flagOutdoor,
+    // Spec filters
+    specFlexible, specStrong, specHighImpact, specLowWarping,
+    specHighTemp, specFastPrint, specEasyPrint, specGoodSurface,
+    specLowToxicity, specLowVoc, specBiodegradable, specRecyclable,
+    specFoodSafe, specMedicalGrade, specConductive, specUvResistant,
     // Other filters
     flagProfessionalOnly, flagPopularMaterials,
     // Tier filters
@@ -1450,6 +1620,7 @@ function setupFilters(allData){
   const priceCount = document.getElementById('price-count');
   const requirementsCount = document.getElementById('requirements-count');
   const usecaseCount = document.getElementById('usecase-count');
+  const specsCount = document.getElementById('specs-count');
   const otherCount = document.getElementById('other-count');
   
   // Collapsible filter functionality
@@ -1489,6 +1660,10 @@ function setupFilters(allData){
     // Use case count
     const usecaseChecked = document.querySelectorAll('#usecase-options input:checked').length;
     usecaseCount.textContent = `(${usecaseChecked})`;
+    
+    // Specs count
+    const specsChecked = document.querySelectorAll('#specs-options input:checked').length;
+    specsCount.textContent = `(${specsChecked})`;
     
     // Other count
     const otherChecked = document.querySelectorAll('#other-options input:checked').length;
@@ -1536,6 +1711,24 @@ function setupFilters(allData){
     flagFunctional.checked = false;
     flagPrototyping.checked = false;
     flagOutdoor.checked = false;
+    
+    // Spec filters - all unchecked (default)
+    specFlexible.checked = false;
+    specStrong.checked = false;
+    specHighImpact.checked = false;
+    specLowWarping.checked = false;
+    specHighTemp.checked = false;
+    specFastPrint.checked = false;
+    specEasyPrint.checked = false;
+    specGoodSurface.checked = false;
+    specLowToxicity.checked = false;
+    specLowVoc.checked = false;
+    specBiodegradable.checked = false;
+    specRecyclable.checked = false;
+    specFoodSafe.checked = false;
+    specMedicalGrade.checked = false;
+    specConductive.checked = false;
+    specUvResistant.checked = false;
     
     // Other filters - both unchecked (default)
     flagProfessionalOnly.checked = false;

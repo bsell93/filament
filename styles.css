@@ -48,6 +48,13 @@ a{color:var(--accent)}
 .filter-options{display:flex;flex-direction:column;gap:6px;padding:0 16px 16px;transition:all 0.3s ease;overflow:hidden}
 .filter-group.collapsed .filter-options{max-height:0;padding:0 16px;opacity:0}
 .filter-options label{display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;padding:6px 8px;border-radius:4px;transition:all 0.2s ease}
+
+/* Spec Groups */
+.spec-group{margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid #212838}
+.spec-group:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
+.spec-group h4{color:var(--accent);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin:0 0 8px 0;padding:0}
+.spec-options{display:flex;flex-direction:column;gap:4px}
+.spec-options label{font-size:12px;padding:4px 6px}
 .filter-options label:hover{background:rgba(122,162,247,0.1)}
 .filter-options input[type="checkbox"]{margin:0;accent-color:var(--accent)}
 
