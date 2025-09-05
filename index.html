@@ -18,44 +18,258 @@
         <a href="https://youtu.be/weeG9yOp3i4" target="_blank" rel="noopener">“The Filament Tier List! Which Should YOU Use?”</a>
       </p>
       <div class="controls">
-        <input id="search" type="search" placeholder="Search filament, notes, use cases…" aria-label="Search filaments">
-        <div class="filters">
+        <input id="search" type="search" placeholder="Search filaments…" aria-label="Search filaments">
+        <div id="status" role="status" aria-live="polite" class="status"></div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-layout">
+    <aside class="sidebar">
+      <div class="filters">
+        <!-- Compare Actions -->
+        <div class="compare-actions">
+          <button id="compare-btn" class="compare-btn" disabled>Compare (0)</button>
+          <button id="clear-compare-btn" class="clear-compare-btn" disabled>Clear</button>
+        </div>
+
+        <!-- Primary Material Filters -->
+        <div class="filter-group primary">
+          <div class="filter-header" data-target="material-options">
+            <span class="filter-label">Material <span class="filter-count" id="material-count">(6)</span></span>
+            <span class="filter-toggle">▼</span>
+          </div>
+          <div class="filter-options" id="material-options">
+            <label><input type="checkbox" id="filter-pla" checked>PLA</label>
+            <label><input type="checkbox" id="filter-petg" checked>PETG</label>
+            <label><input type="checkbox" id="filter-abs" checked>ABS</label>
+            <label><input type="checkbox" id="filter-tpu" checked>TPU</label>
+            <label><input type="checkbox" id="filter-nylon" checked>Nylon</label>
+            <label><input type="checkbox" id="filter-other" checked>Other</label>
+          </div>
+        </div>
+
+        <!-- Quality & Difficulty -->
           <div class="filter-group">
-            <span class="filter-label">Tier</span>
+          <div class="filter-header" data-target="quality-options">
+            <span class="filter-label">Grade <span class="filter-count" id="quality-count">(5)</span></span>
+            <span class="filter-toggle">▼</span>
+          </div>
+          <div class="filter-options" id="quality-options">
             <label><input type="checkbox" name="tier" value="S" checked>S</label>
             <label><input type="checkbox" name="tier" value="A" checked>A</label>
             <label><input type="checkbox" name="tier" value="B" checked>B</label>
             <label><input type="checkbox" name="tier" value="C" checked>C</label>
             <label><input type="checkbox" name="tier" value="F" checked>F</label>
           </div>
-          <div class="filter-group">
-            <span class="filter-label">Flags</span>
-            <label><input type="checkbox" id="flag-enclosure"> Prefers enclosure</label>
-            <label><input type="checkbox" id="flag-hardened"> Requires hardened nozzle</label>
-            <label><input type="checkbox" id="flag-hygro"> Moisture sensitive</label>
-            <label><input type="checkbox" id="flag-aesthetic"> Aesthetic</label>
+        </div>
+
+        <div class="filter-group">
+          <div class="filter-header" data-target="difficulty-options">
+            <span class="filter-label">Difficulty <span class="filter-count" id="difficulty-count">(3)</span></span>
+            <span class="filter-toggle">▼</span>
           </div>
-          <div class="filter-group">
-            <button id="compare-btn" class="compare-btn" disabled>Compare (0)</button>
-            <button id="clear-compare-btn" class="clear-compare-btn" disabled>Clear</button>
+          <div class="filter-options" id="difficulty-options">
+            <label><input type="checkbox" id="filter-beginner" checked>Beginner</label>
+            <label><input type="checkbox" id="filter-intermediate" checked>Intermediate</label>
+            <label><input type="checkbox" id="filter-advanced" checked>Advanced</label>
           </div>
         </div>
-        <div id="status" role="status" aria-live="polite" class="status"></div>
-      </div>
-    </div>
-  </header>
 
-  <main class="container">
+        <!-- Price & Requirements -->
+        <div class="filter-group">
+          <div class="filter-header" data-target="price-options">
+            <span class="filter-label">Price <span class="filter-count" id="price-count">(3)</span></span>
+            <span class="filter-toggle">▼</span>
+          </div>
+          <div class="filter-options" id="price-options">
+            <label><input type="checkbox" id="filter-budget" checked>Budget</label>
+            <label><input type="checkbox" id="filter-midrange" checked>Mid-range</label>
+            <label><input type="checkbox" id="filter-premium" checked>Premium</label>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <div class="filter-header" data-target="requirements-options">
+            <span class="filter-label">Requirements <span class="filter-count" id="requirements-count">(0)</span></span>
+            <span class="filter-toggle">▼</span>
+          </div>
+          <div class="filter-options" id="requirements-options">
+            <label><input type="checkbox" id="flag-enclosure">Enclosure</label>
+            <label><input type="checkbox" id="flag-hardened">Hardened Nozzle</label>
+            <label><input type="checkbox" id="flag-hygro">Moisture Sensitive</label>
+          </div>
+        </div>
+
+        <!-- Use Cases -->
+          <div class="filter-group">
+          <div class="filter-header" data-target="usecase-options">
+            <span class="filter-label">Use Case <span class="filter-count" id="usecase-count">(0)</span></span>
+            <span class="filter-toggle">▼</span>
+          </div>
+          <div class="filter-options" id="usecase-options">
+            <label><input type="checkbox" id="flag-aesthetic">Aesthetic</label>
+            <label><input type="checkbox" id="flag-functional">Functional</label>
+            <label><input type="checkbox" id="flag-prototyping">Prototyping</label>
+            <label><input type="checkbox" id="flag-outdoor">Outdoor</label>
+          </div>
+        </div>
+
+        <!-- Other Filters -->
+          <div class="filter-group">
+          <div class="filter-header" data-target="other-options">
+            <span class="filter-label">Other <span class="filter-count" id="other-count">(2)</span></span>
+            <span class="filter-toggle">▼</span>
+          </div>
+          <div class="filter-options" id="other-options">
+            <label><input type="checkbox" id="flag-professional-only">Professional/Advanced Equipment</label>
+            <label><input type="checkbox" id="flag-popular-materials">Popular Materials</label>
+          </div>
+        </div>
+
+        <!-- Reset Actions -->
+        <div class="reset-actions">
+          <button id="reset-filters-btn" class="reset-filters-btn">Reset Filters</button>
+        </div>
+      </div>
+    </aside>
+
+    <div class="content">
+    <div class="results-header">
+      <span id="results-count" class="results-count">Showing 0 filaments</span>
+    </div>
     <section id="results" class="grid"></section>
 
     <aside class="legend">
-      <h2>Legend</h2>
-      <ul>
-        <li><span class="badge enclosure">Prefers enclosure</span> — benefits from a heated/enclosed build volume</li>
-        <li><span class="badge hardened">Requires hardened nozzle</span> — abrasive; avoid brass nozzles</li>
-        <li><span class="badge hygro">Moisture sensitive</span> — keep dry or actively dry before printing</li>
-        <li><span class="badge aesthetic">Aesthetic</span> — chosen for looks over mechanical strength</li>
-      </ul>
+      <h2>Legend & Guide</h2>
+      
+      <!-- Filament Flags Section -->
+      <div class="legend-section">
+        <h3>Filament Flags</h3>
+        <div class="legend-grid">
+          <div class="legend-item">
+            <span class="badge enclosure">Prefers enclosure</span>
+            <span class="legend-description">Benefits from a heated/enclosed build volume for better print quality</span>
+          </div>
+          <div class="legend-item">
+            <span class="badge hardened">Requires hardened nozzle</span>
+            <span class="legend-description">Abrasive material; avoid brass nozzles to prevent wear</span>
+          </div>
+          <div class="legend-item">
+            <span class="badge hygro">Moisture sensitive</span>
+            <span class="legend-description">Keep dry or actively dry before printing to prevent issues</span>
+          </div>
+          <div class="legend-item">
+            <span class="badge aesthetic">Aesthetic</span>
+            <span class="legend-description">Chosen for visual appearance over mechanical strength</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chart Axis Descriptions Section -->
+      <div class="legend-section">
+        <h3>Chart Axis Descriptions</h3>
+        
+        <!-- Core Performance Chart -->
+        <div class="chart-group">
+          <h4>Core Performance</h4>
+          <div class="axis-grid">
+            <div class="axis-item">
+              <strong>Warping:</strong> How much the material bends during printing. Low warping means easier printing with fewer failed prints and better dimensional accuracy.
+            </div>
+            <div class="axis-item">
+              <strong>Temperature Resistance:</strong> Maximum temperature before the material deforms or loses its shape. Higher values mean better performance in hot environments and automotive applications.
+            </div>
+            <div class="axis-item">
+              <strong>Flexibility:</strong> How much the material can bend before breaking. Higher flexibility means more durable parts that can absorb impacts and stress without cracking.
+            </div>
+            <div class="axis-item">
+              <strong>Tensile Strength:</strong> Resistance to breaking when pulled apart. Higher tensile strength means stronger parts that can handle more load and mechanical stress.
+            </div>
+            <div class="axis-item">
+              <strong>Impact Resistance:</strong> Resistance to breaking from sudden force or impact. Higher impact resistance means more durable parts that won't crack when dropped or hit.
+            </div>
+            <div class="axis-item">
+              <strong>Print Speed:</strong> How fast you can print without quality issues. Higher print speeds mean faster prototyping and production, saving time and material costs.
+            </div>
+          </div>
+        </div>
+
+        <!-- Quality & Usability Chart -->
+        <div class="chart-group">
+          <h4>Quality & Usability</h4>
+          <div class="axis-grid">
+            <div class="axis-item">
+              <strong>Surface Quality:</strong> How good the final print looks. Higher values mean smoother, more consistent surface finish with less visible layer lines.
+            </div>
+            <div class="axis-item">
+              <strong>Cost Effectiveness:</strong> Price vs. performance ratio. Higher values mean better bang for your buck - good performance at a reasonable price.
+            </div>
+            <div class="axis-item">
+              <strong>Post-Processing:</strong> How easy it is to finish the print. Higher values mean easier sanding, painting, and post-processing work.
+            </div>
+            <div class="axis-item">
+              <strong>Ease of Printing:</strong> How forgiving and easy the material is to print. Higher values mean less tuning, more consistent results, and beginner-friendly.
+            </div>
+            <div class="axis-item">
+              <strong>Layer Adhesion:</strong> How well layers stick together. Higher values mean stronger prints with better inter-layer bonding.
+            </div>
+            <div class="axis-item">
+              <strong>Dimensional Accuracy:</strong> How precise the printed dimensions are. Higher values mean more accurate prints that match the design.
+            </div>
+          </div>
+        </div>
+
+        <!-- Safety & Environmental Chart -->
+        <div class="chart-group">
+          <h4>Safety & Environmental</h4>
+          <div class="axis-grid">
+            <div class="axis-item">
+              <strong>VOC Emissions:</strong> Volatile organic compounds released during printing. Lower values mean better air quality and safer indoor printing.
+            </div>
+            <div class="axis-item">
+              <strong>Toxicity:</strong> Health safety level. Lower values mean safer handling and less risk of health issues.
+            </div>
+            <div class="axis-item">
+              <strong>Biodegradability:</strong> How well the material breaks down naturally. Higher values mean more environmentally friendly.
+            </div>
+            <div class="axis-item">
+              <strong>Recyclability:</strong> How easily the material can be recycled. Higher values mean better waste reduction.
+            </div>
+            <div class="axis-item">
+              <strong>Chemical Safety:</strong> Safe handling requirements. Lower values mean safer handling with fewer precautions needed.
+            </div>
+            <div class="axis-item">
+              <strong>Storage Requirements:</strong> Special storage needs. Lower values mean easier storage with fewer special requirements.
+            </div>
+          </div>
+        </div>
+
+        <!-- Advanced Properties Chart -->
+        <div class="chart-group">
+          <h4>Advanced Properties</h4>
+          <div class="axis-grid">
+            <div class="axis-item">
+              <strong>Electrical Conductivity:</strong> Electrical properties. Lower values mean better insulating properties.
+            </div>
+            <div class="axis-item">
+              <strong>Food Safety:</strong> Food contact safety. Higher values mean safer for food-related applications.
+            </div>
+            <div class="axis-item">
+              <strong>Medical Grade:</strong> Medical device compatibility. Higher values mean better for medical applications.
+            </div>
+            <div class="axis-item">
+              <strong>UV Resistance:</strong> Resistance to UV degradation. Higher values mean better outdoor durability.
+            </div>
+            <div class="axis-item">
+              <strong>Chemical Resistance:</strong> Resistance to chemical exposure. Higher values mean better chemical durability.
+            </div>
+            <div class="axis-item">
+              <strong>Creep Resistance:</strong> Resistance to permanent deformation under load. Higher values mean better long-term stability.
+            </div>
+          </div>
+        </div>
+      </div>
     </aside>
   </main>
 
@@ -67,7 +281,6 @@
         <button id="close-comparison" class="close-btn">&times;</button>
       </div>
       <div id="comparison-charts" class="comparison-charts">
-        <canvas id="radar-chart" width="400" height="400"></canvas>
       </div>
       <div id="comparison-table" class="comparison-table"></div>
     </div>
@@ -104,8 +317,9 @@
         </ul>
         <p><em>Note: This page is maintained as a quick reference tool. Always consult manufacturer specifications and conduct your own testing for critical applications. Printing parameters may vary based on printer model, environmental conditions, and specific filament brand.</em></p>
       </div>
+    </aside>
     </div>
-  </footer>
+  </main>
 
   <!-- Embedded data fallback for file:// usage -->
   <script id="filaments-data" type="application/json">[{"name": "Carbon Fiber PLA (CFPLA)", "tier": "S", "temp": "200–220°C", "notes": "Matte finish, low shrinkage, sharp detail.", "badges": ["Requires hardened nozzle"], "use_cases": "Precise and aesthetic prints", "enclosure": false, "hygroscopic": false}, {"name": "Tough PLA", "tier": "S", "temp": "200–220°C", "notes": "PLA blended for higher impact resistance and toughness.", "badges": [], "use_cases": "Light-duty functional parts", "enclosure": false, "hygroscopic": false}, {"name": "High-Speed PLA", "tier": "S", "temp": "190–210°C", "notes": "Lower viscosity to enable very fast print speeds.", "badges": [], "use_cases": "Rapid prototyping", "enclosure": false, "hygroscopic": false}, {"name": "TPU (High Durometer)", "tier": "S", "temp": "200–230°C", "notes": "Very tough and resilient.", "badges": [], "use_cases": "Impact-heavy parts (e.g., combat robotics)", "enclosure": false, "hygroscopic": false}, {"name": "PCTG", "tier": "S", "temp": "240–250°C", "notes": "PETG variant with improved flexibility and printability; less prone to warping and moisture uptake than PETG.", "badges": [], "use_cases": "Durable functional parts", "enclosure": false, "hygroscopic": false}, {"name": "PLA", "tier": "A", "temp": "200–220°C", "notes": "Easy, versatile; limited heat and UV resistance.", "badges": [], "use_cases": "General models and prototypes", "enclosure": false, "hygroscopic": false}, {"name": "PETG", "tier": "A", "temp": "240–260°C", "notes": "Tougher than PLA; more heat tolerant; can warp and is moisture sensitive.", "badges": ["Moisture sensitive"], "use_cases": "Functional prototypes", "enclosure": false, "hygroscopic": true}, {"name": "Carbon Fiber PETG (CF PETG)", "tier": "A", "temp": "250–270°C", "notes": "Stiffer with reduced warping vs standard PETG.", "badges": ["Requires hardened nozzle"], "use_cases": "Stiff functional parts", "enclosure": false, "hygroscopic": false}, {"name": "ASA", "tier": "A", "temp": "250–260°C", "notes": "UV/heat resistant, matte; lower warping than ABS.", "badges": [], "use_cases": "Outdoor parts", "enclosure": false, "hygroscopic": false}, {"name": "PC PBT (Polycarbonate/PBT blend)", "tier": "A", "temp": "~260°C", "notes": "More printable PC blend; good cold/chemical resistance.", "badges": [], "use_cases": "Functional parts used in cooler environments", "enclosure": false, "hygroscopic": false}, {"name": "Polycarbonate (PC)", "tier": "A", "temp": "275–300°C", "notes": "Very strong; prone to warp; favors an enclosure.", "badges": ["Prefers enclosure"], "use_cases": "High-strength applications", "enclosure": true, "hygroscopic": false}, {"name": "PEKK", "tier": "A", "temp": "300–340°C", "notes": "High-performance polymer; easier than PEEK.", "badges": [], "use_cases": "Engineering parts needing chemical resistance", "enclosure": false, "hygroscopic": false}, {"name": "SEBS", "tier": "A", "temp": "220–230°C", "notes": "Rubberlike flexible; extruder-dependent tuning.", "badges": [], "use_cases": "Flexible components", "enclosure": false, "hygroscopic": false}, {"name": "PSU (Polysulfone)", "tier": "A", "temp": "280–300°C", "notes": "High-heat and chemical resistance; sterilizable.", "badges": [], "use_cases": "High-temp functional parts", "enclosure": false, "hygroscopic": false}, {"name": "Silk PLA", "tier": "B", "temp": "200–220°C", "notes": "Shiny aesthetic; weaker mechanics; can clog.", "badges": ["Aesthetic"], "use_cases": "Display pieces", "enclosure": false, "hygroscopic": false}, {"name": "Wood PLA", "tier": "B", "temp": "200–220°C", "notes": "Wood-loaded for appearance; weaker; moisture-prone.", "badges": ["Aesthetic"], "use_cases": "Decorative prints", "enclosure": false, "hygroscopic": true}, {"name": "Carbon Fiber PC (CF PC)", "tier": "B", "temp": "300–320°C", "notes": "Extremely stiff; challenging; favors an enclosure and high temps.", "badges": ["Requires hardened nozzle", "Prefers enclosure"], "use_cases": "High-temp stiff parts", "enclosure": true, "hygroscopic": false}, {"name": "HIPS", "tier": "B", "temp": "220–240°C", "notes": "Support material; dissolves in limonene.", "badges": [], "use_cases": "Soluble supports or lightweight parts", "enclosure": false, "hygroscopic": false}, {"name": "PET (Bottle-grade)", "tier": "B", "temp": "275–300°C", "notes": "Stiffer than PETG; harder to print; wants enclosure.", "badges": ["Prefers enclosure"], "use_cases": "High-stiffness parts (with capable printers)", "enclosure": true, "hygroscopic": false}, {"name": "PA6 Nylon", "tier": "B", "temp": "250–275°C", "notes": "Strong/flexible but very hygroscopic; warps without chamber.", "badges": ["Moisture sensitive", "Prefers enclosure"], "use_cases": "Functional parts where toughness matters", "enclosure": true, "hygroscopic": true}, {"name": "Glass-Filled PP (GF PP)", "tier": "B", "temp": "220–240°C", "notes": "Tough and weather-resistant; adhesion/warping are tricky.", "badges": [], "use_cases": "Outdoor/automotive style parts (with tuned setup)", "enclosure": false, "hygroscopic": false}, {"name": "TPU (Low Durometer)", "tier": "C", "temp": "200–230°C", "notes": "Very soft; tends to snake/jam; not breathable for wearables.", "badges": [], "use_cases": "Highly flexible parts (if printer supports)", "enclosure": false, "hygroscopic": false}, {"name": "Polypropylene (PP)", "tier": "C", "temp": "220–240°C", "notes": "Light and durable but notorious for warp/adhesion issues.", "badges": [], "use_cases": "Containers/hinges if you can tame it", "enclosure": false, "hygroscopic": false}, {"name": "OBC (Olefin Block Copolymer)", "tier": "C", "temp": "220–250°C", "notes": "Aims for PP toughness + PETG versatility; still adhesion/warp problems.", "badges": [], "use_cases": "Tough parts if adhesion handled", "enclosure": false, "hygroscopic": false}, {"name": "PEEK", "tier": "C", "temp": "~400°C", "notes": "Exceptional properties but extremely demanding and costly; needs enclosure.", "badges": ["Prefers enclosure"], "use_cases": "High-end engineering with specialized printers", "enclosure": true, "hygroscopic": false}, {"name": "PPS", "tier": "C", "temp": "~325°C", "notes": "Excellent chemical resistance; difficult and expensive.", "badges": [], "use_cases": "Chemical/thermal demanding parts", "enclosure": false, "hygroscopic": false}, {"name": "Glass-Filled Nylon (GFPA)", "tier": "C", "temp": "~300°C", "notes": "Very durable; requires abrasion-resistant nozzles and temp control.", "badges": ["Requires hardened nozzle", "Prefers enclosure"], "use_cases": "Tough structural parts", "enclosure": true, "hygroscopic": false}, {"name": "PMMA (Acrylic)", "tier": "C", "temp": "230–250°C", "notes": "Clear and pretty but brittle; poor adhesion.", "badges": ["Aesthetic"], "use_cases": "Transparent display parts", "enclosure": false, "hygroscopic": false}, {"name": "Metal-Filled Composites", "tier": "F", "temp": "210–250°C", "notes": "Costly and brittle vs PLA; aesthetic-first materials.", "badges": ["Aesthetic", "Requires hardened nozzle"], "use_cases": "One-off show pieces", "enclosure": false, "hygroscopic": false}, {"name": "HDPE", "tier": "F", "temp": "230–250°C", "notes": "Extreme warping; very poor adhesion.", "badges": [], "use_cases": "Not generally recommended for FDM", "enclosure": false, "hygroscopic": false}, {"name": "POM (Acetal/Delrin)", "tier": "F", "temp": "220–240°C", "notes": "Nearly zero bed adhesion; overheating risks toxic fumes.", "badges": [], "use_cases": "Not recommended for hobby FDM", "enclosure": false, "hygroscopic": false}, {"name": "TPI (Kapton)", "tier": "F", "temp": "~450°C", "notes": "Requires extreme temps; impractical on hobby machines.", "badges": [], "use_cases": "Specialized industrial setups only", "enclosure": false, "hygroscopic": false}, {"name": "PVDF", "tier": "F", "temp": "260–280°C", "notes": "Tough/chemical-resistant but hazardous decomposition risk if overheated.", "badges": [], "use_cases": "Niche chemical-resistance needs with capable machines", "enclosure": false, "hygroscopic": false}]</script>
