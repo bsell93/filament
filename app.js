@@ -76,6 +76,13 @@ function saveCurrentState() {
       prototyping: document.getElementById('flag-prototyping').checked,
       outdoor: document.getElementById('flag-outdoor').checked
     },
+    videoFilters: {
+      s: document.getElementById('video-filter-s').checked,
+      a: document.getElementById('video-filter-a').checked,
+      b: document.getElementById('video-filter-b').checked,
+      c: document.getElementById('video-filter-c').checked,
+      f: document.getElementById('video-filter-f').checked
+    },
     otherFilters: {
       professionalOnly: document.getElementById('flag-professional-only').checked,
       popularMaterials: document.getElementById('flag-popular-materials').checked
@@ -173,6 +180,14 @@ function loadSavedState() {
   if (filterState.useCaseFilters) {
     Object.entries(filterState.useCaseFilters).forEach(([key, checked]) => {
       const element = document.getElementById(`flag-${key}`);
+      if (element) element.checked = checked;
+    });
+  }
+  
+  // Load video filters
+  if (filterState.videoFilters) {
+    Object.entries(filterState.videoFilters).forEach(([key, checked]) => {
+      const element = document.getElementById(`video-filter-${key}`);
       if (element) element.checked = checked;
     });
   }
@@ -1247,6 +1262,13 @@ function setupFilters(allData){
   const flagProfessionalOnly = document.getElementById('flag-professional-only');
   const flagPopularMaterials = document.getElementById('flag-popular-materials');
   
+  // Video filters
+  const videoFilterS = document.getElementById('video-filter-s');
+  const videoFilterA = document.getElementById('video-filter-a');
+  const videoFilterB = document.getElementById('video-filter-b');
+  const videoFilterC = document.getElementById('video-filter-c');
+  const videoFilterF = document.getElementById('video-filter-f');
+  
   // Action buttons
   const resetFilters = document.getElementById('reset-filters-btn');
 
@@ -1328,6 +1350,40 @@ function setupFilters(allData){
     
     // Exclude everything else - be very restrictive
     return false;
+  }
+
+  // Function to check if a filament is in the YouTube video categories
+  function isInVideoCategory(filament, category) {
+    const videoFilaments = {
+      'S': [
+        'Carbon Fiber PLA (CFPLA)', 'Tough PLA', 'High-Speed PLA', 
+        'Carbon Fiber PETG (CF PETG)', 'PCTG', 'Glass-Filled Nylon (GF Nylon)', 'TPU 99D'
+      ],
+      'A': [
+        'PLA', 'PETG', 'Carbon Fiber PET (CF PET)', 'ASA', 'Carbon Fiber PC (CF PC)', 
+        'PC PBT (Polycarbonate/PBT blend)', 'SEBS', 'PEKK', 'Ultem (PEI)'
+      ],
+      'B': [
+        'Silk PLA', 'Wood PLA', 'Matte PLA', 'Flex PLA (PCL)', 'PET (Bottle-grade)', 
+        'PVB', 'HIPS', 'PA6 Nylon', 'Nylon PA-12', 
+        'Carbon Fiber Nylon PA-6 (CF Nylon PA-6)', 'Polycarbonate (PC)', 
+        'TPU 80D', 'Glass-Filled PP (GF PP)', 'PSU (Polysulfone)'
+      ],
+      'C': [
+        'ABS', 'Carbon Fiber Nylon PA-12 (CF Nylon PA-12)', 
+        'Nylon/PETG Alloys', 'Clear PMMA', 'Chocolate (Disqualified)', 'TPU 80C', 
+        'OBC (Olefin Block Copolymer)', 'PEEK', 'PPS', 'PES', 'PPSU', 'Carbon Fiber PEEK (CF PEEK)'
+      ],
+      'F': [
+        '5x Metal-Filled PLA', 'Non-clear PMMA', 'TPE', 'Polypropylene (PP)', 
+        'HDPE', 'POM (Acetal/Delrin)', 'PVDF', 'TPI (Kapton)'
+      ]
+    };
+
+    const filaments = videoFilaments[category] || [];
+    return filaments.some(videoFilament => 
+      filament.name === videoFilament
+    );
   }
 
   // Helper functions for new filters
@@ -1577,6 +1633,18 @@ function setupFilters(allData){
       filtered = filtered.filter(f => specFilters.some(filter => filter(f)));
     }
 
+    // Video filters (OR logic within group)
+    const videoFilters = [];
+    if(videoFilterS.checked) videoFilters.push(f => isInVideoCategory(f, 'S'));
+    if(videoFilterA.checked) videoFilters.push(f => isInVideoCategory(f, 'A'));
+    if(videoFilterB.checked) videoFilters.push(f => isInVideoCategory(f, 'B'));
+    if(videoFilterC.checked) videoFilters.push(f => isInVideoCategory(f, 'C'));
+    if(videoFilterF.checked) videoFilters.push(f => isInVideoCategory(f, 'F'));
+    
+    if (videoFilters.length > 0) {
+      filtered = filtered.filter(f => videoFilters.some(filter => filter(f)));
+    }
+
     // Other filters (OR logic within group)
     const otherFilters = [];
     if(flagProfessionalOnly.checked) otherFilters.push(f => requiresProfessionalEquipment(f));
@@ -1594,6 +1662,8 @@ function setupFilters(allData){
     q, 
     // Material filters
     filterPLA, filterPETG, filterABS, filterTPU, filterNylon, filterOther,
+    // Video filters
+    videoFilterS, videoFilterA, videoFilterB, videoFilterC, videoFilterF,
     // Difficulty filters
     filterBeginner, filterIntermediate, filterAdvanced,
     // Price filters
@@ -1615,6 +1685,7 @@ function setupFilters(allData){
   
   // Filter count elements
   const materialCount = document.getElementById('material-count');
+  const videoCount = document.getElementById('video-count');
   const qualityCount = document.getElementById('quality-count');
   const difficultyCount = document.getElementById('difficulty-count');
   const priceCount = document.getElementById('price-count');
@@ -1640,6 +1711,10 @@ function setupFilters(allData){
     // Material count
     const materialChecked = document.querySelectorAll('#material-options input:checked').length;
     materialCount.textContent = `(${materialChecked})`;
+    
+    // Video count
+    const videoChecked = document.querySelectorAll('#video-options input:checked').length;
+    videoCount.textContent = `(${videoChecked})`;
     
     // Quality count
     const qualityChecked = document.querySelectorAll('#quality-options input:checked').length;
@@ -1729,6 +1804,13 @@ function setupFilters(allData){
     specMedicalGrade.checked = false;
     specConductive.checked = false;
     specUvResistant.checked = false;
+    
+    // Video filters - all unchecked (default)
+    videoFilterS.checked = false;
+    videoFilterA.checked = false;
+    videoFilterB.checked = false;
+    videoFilterC.checked = false;
+    videoFilterF.checked = false;
     
     // Other filters - both unchecked (default)
     flagProfessionalOnly.checked = false;

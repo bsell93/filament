@@ -442,7 +442,7 @@
   },
   {
     "name": "Carbon Fiber PETG (CF PETG)",
-    "tier": "A",
+    "tier": "S",
     "temp": "250–270°C",
     "notes": "Stiffer with reduced warping vs standard PETG.",
     "badges": [
@@ -588,7 +588,7 @@
   },
   {
     "name": "Polycarbonate (PC)",
-    "tier": "A",
+    "tier": "B",
     "temp": "275–300°C",
     "notes": "Very strong; prone to warp; favors an enclosure.",
     "badges": [
@@ -734,7 +734,7 @@
   },
   {
     "name": "PSU (Polysulfone)",
-    "tier": "A",
+    "tier": "B",
     "temp": "280–300°C",
     "notes": "High-heat and chemical resistance; sterilizable.",
     "badges": [],
@@ -1080,7 +1080,7 @@
   },
   {
     "name": "Carbon Fiber PC (CF PC)",
-    "tier": "B",
+    "tier": "A",
     "temp": "300–320°C",
     "notes": "Extremely stiff; challenging; favors an enclosure and high temps.",
     "badges": [
@@ -1877,7 +1877,7 @@
   },
   {
     "name": "Polypropylene (PP)",
-    "tier": "C",
+    "tier": "F",
     "temp": "220–240°C",
     "notes": "Light and durable but notorious for warp/adhesion issues.",
     "badges": [],
