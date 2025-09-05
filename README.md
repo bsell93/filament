@@ -1,22 +1,21 @@
 # Filament Tier List
 
-A static reference site that organizes popular 3D printing filaments by tier, based on **Zack Freedman’s video**  
+An interactive reference for 3D printing filaments with filtering, comparison tools, and detailed specs. Based on **Zack Freedman's video**  
 👉 [The 3D Filament Tier List! Which Should YOU Use?](https://youtu.be/weeG9yOp3i4)
 
-🔗 **Live demo (GitHub Pages)**: [https://bsell93.github.io/filament/](https://bsell93.github.io/filament/)
+🔗 **Live demo**: [https://bsell93.github.io/filament/](https://bsell93.github.io/filament/)
 
 ---
 
 ## ✨ Features
-- **Tiered view (S → F)** with print temperatures, notes, and use cases.
-- **Search bar** to quickly find filaments by name, notes, or use case.
-- **Filter controls** for tiers and flags:
-  - Prefers enclosure
-  - Requires hardened nozzle
-  - Moisture sensitive
-  - Aesthetic
-- Works fully static — no backend required.
-- Includes **embedded JSON fallback** so it still loads when opened locally with `file://`.
+
+- **Tiered view (S → F)** with temperatures, notes, and use cases
+- **Smart search** across names, specs, and use cases
+- **Interactive radar charts** showing performance metrics
+- **Compare multiple filaments** side-by-side
+- **Advanced filtering** by material, difficulty, price, requirements, and specs
+- **State persistence** - your filters and selections are saved
+- **Works offline** with embedded data fallback
 
 ---
 
@@ -28,11 +27,11 @@ This website is **generated from a community summary** of the video and may cont
 
 ---
 
-## 📂 Structure
-- `index.html` — main page
-- `styles.css` — styling
-- `app.js` — search/filter logic
-- `filaments.json` — filament dataset (also embedded inline as a fallback)
+## 📂 Files
+- `index.html` — main page with UI and embedded data
+- `styles.css` — styling and responsive design
+- `app.js` — filtering, charts, and comparison logic
+- `filaments.json` — filament data with detailed specs
 
 ---
 
@@ -45,17 +44,20 @@ This repo is designed for **GitHub Pages**:
 ---
 
 ## 🛠 Development
-You can run it locally with any static server, for example:
+Run locally with any static server:
 
 ```bash
 python -m http.server 8000
 # then open http://localhost:8000
 ```
 
+**Requirements**: Modern browser with Canvas support for charts
+
 ---
 
 ## 🙌 Credits
 
-* [Zack Freedman](https://www.youtube.com/c/ZackFreedman) for the original video content.
-* Community TL;DR and summaries from [r/3Dprinting](https://www.reddit.com/r/3Dprinting).
-* Generated and assembled into this static site for convenience.
+* [Zack Freedman](https://www.youtube.com/c/ZackFreedman) for the original video content
+* Community data from [r/3Dprinting](https://www.reddit.com/r/3Dprinting)
+* [Chart.js](https://www.chartjs.org/) for radar charts
+* [Inter Font](https://rsms.me/inter/) for typography
