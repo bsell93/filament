@@ -1371,7 +1371,7 @@ function setupFilters(allData){
       ],
       'C': [
         'ABS', 'Carbon Fiber Nylon PA-12 (CF Nylon PA-12)', 
-        'Nylon/PETG Alloys', 'Clear PMMA', 'Chocolate (Disqualified)', 'TPU 80C', 
+        'Nylon/PETG Alloys', 'Clear PMMA', 'Chocolate', 'TPU 80C', 
         'OBC (Olefin Block Copolymer)', 'PEEK', 'PPS', 'PES', 'PPSU', 'Carbon Fiber PEEK (CF PEEK)'
       ],
       'F': [
