@@ -77,6 +77,7 @@ function saveCurrentState() {
       outdoor: document.getElementById('flag-outdoor').checked
     },
     otherFilters: {
+      youtubeOnly: document.getElementById('flag-youtube-only')?.checked || false,
       professionalOnly: document.getElementById('flag-professional-only').checked,
       popularMaterials: document.getElementById('flag-popular-materials').checked
     },
@@ -1244,6 +1245,7 @@ function setupFilters(allData){
   const specUvResistant = document.getElementById('spec-uv-resistant');
   
   // Other filters
+  const flagYouTubeOnly = document.getElementById('flag-youtube-only');
   const flagProfessionalOnly = document.getElementById('flag-professional-only');
   const flagPopularMaterials = document.getElementById('flag-popular-materials');
   
@@ -1328,6 +1330,25 @@ function setupFilters(allData){
     
     // Exclude everything else - be very restrictive
     return false;
+  }
+
+  // Build a set of filament names that are present in the embedded YouTube video dataset
+  // This uses the inline fallback JSON in index.html as the canonical video list
+  const videoFilamentNameSet = (() => {
+    try {
+      const el = document.getElementById('filaments-data');
+      if (!el || !el.textContent) return new Set();
+      const inline = JSON.parse(el.textContent);
+      const names = Array.isArray(inline) ? inline.map(item => item && item.name).filter(Boolean) : [];
+      return new Set(names);
+    } catch (e) {
+      return new Set();
+    }
+  })();
+
+  function isFromYouTubeVideo(filament) {
+    // Match by exact name against the inline dataset list
+    return videoFilamentNameSet.has(filament.name);
   }
 
   // Helper functions for new filters
@@ -1579,6 +1600,7 @@ function setupFilters(allData){
 
     // Other filters (OR logic within group)
     const otherFilters = [];
+    if(flagYouTubeOnly && flagYouTubeOnly.checked) otherFilters.push(f => isFromYouTubeVideo(f));
     if(flagProfessionalOnly.checked) otherFilters.push(f => requiresProfessionalEquipment(f));
     if(flagPopularMaterials.checked) otherFilters.push(f => isPopularMaterial(f));
     
@@ -1608,7 +1630,7 @@ function setupFilters(allData){
     specLowToxicity, specLowVoc, specBiodegradable, specRecyclable,
     specFoodSafe, specMedicalGrade, specConductive, specUvResistant,
     // Other filters
-    flagProfessionalOnly, flagPopularMaterials,
+    flagYouTubeOnly, flagProfessionalOnly, flagPopularMaterials,
     // Tier filters
     ...tierChecks
   ];
@@ -1730,7 +1752,8 @@ function setupFilters(allData){
     specConductive.checked = false;
     specUvResistant.checked = false;
     
-    // Other filters - both unchecked (default)
+    // Other filters - all unchecked (default)
+    if (flagYouTubeOnly) flagYouTubeOnly.checked = false;
     flagProfessionalOnly.checked = false;
     flagPopularMaterials.checked = false;
     
