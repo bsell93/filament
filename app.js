@@ -78,7 +78,8 @@ function saveCurrentState() {
     },
     otherFilters: {
       professionalOnly: document.getElementById('flag-professional-only').checked,
-      popularMaterials: document.getElementById('flag-popular-materials').checked
+      popularMaterials: document.getElementById('flag-popular-materials').checked,
+      fromYouTube: document.getElementById('flag-from-youtube').checked
     },
     specFilters: {
       flexible: document.getElementById('spec-flexible').checked,
@@ -1246,6 +1247,7 @@ function setupFilters(allData){
   // Other filters
   const flagProfessionalOnly = document.getElementById('flag-professional-only');
   const flagPopularMaterials = document.getElementById('flag-popular-materials');
+  const flagFromYouTube = document.getElementById('flag-from-youtube');
   
   // Action buttons
   const resetFilters = document.getElementById('reset-filters-btn');
@@ -1327,6 +1329,53 @@ function setupFilters(allData){
     }
     
     // Exclude everything else - be very restrictive
+    return false;
+  }
+
+  // Function to check if a filament is from the YouTube video (core/featured materials)
+  function isFromYouTubeVideo(filament) {
+    // Since all filaments are from the video, we'll identify the "core" materials
+    // that would typically be featured prominently in a tier list video
+    
+    // High-tier materials (S and A) are likely to be featured
+    if (filament.tier === 'S' || filament.tier === 'A') {
+      return true;
+    }
+    
+    // Core material types that are commonly discussed
+    const coreMaterials = [
+      'PLA', 'PETG', 'ABS', 'TPU', 'ASA', 'Nylon', 'PCTG', 'PC', 'POM', 'HIPS'
+    ];
+    
+    if (coreMaterials.some(material => filament.name.includes(material))) {
+      // Include basic variants but exclude highly specialized ones
+      if (!filament.name.includes('Carbon Fiber') && 
+          !filament.name.includes('Glass Filled') &&
+          !filament.name.includes('Metal Filled') &&
+          !filament.name.includes('Conductive') &&
+          !filament.name.includes('Magnetic') &&
+          !filament.name.includes('Glow') &&
+          !filament.name.includes('Color-Changing') &&
+          !filament.name.includes('Wood') &&
+          !filament.name.includes('Marble') &&
+          !filament.name.includes('Silk') &&
+          !filament.name.includes('Matte') &&
+          !filament.name.includes('Transparent') &&
+          !filament.name.includes('Clear')) {
+        return true;
+      }
+    }
+    
+    // Include some important specialized materials that are commonly featured
+    const featuredSpecialized = [
+      'Carbon Fiber PLA', 'Tough PLA', 'High-Speed PLA', 'TPU 99D',
+      'PCTG', 'ASA', 'PC', 'POM', 'HIPS', 'PVA'
+    ];
+    
+    if (featuredSpecialized.some(name => filament.name.includes(name))) {
+      return true;
+    }
+    
     return false;
   }
 
@@ -1581,6 +1630,7 @@ function setupFilters(allData){
     const otherFilters = [];
     if(flagProfessionalOnly.checked) otherFilters.push(f => requiresProfessionalEquipment(f));
     if(flagPopularMaterials.checked) otherFilters.push(f => isPopularMaterial(f));
+    if(flagFromYouTube.checked) otherFilters.push(f => isFromYouTubeVideo(f));
     
     if (otherFilters.length > 0) {
       filtered = filtered.filter(f => otherFilters.some(filter => filter(f)));
@@ -1608,7 +1658,7 @@ function setupFilters(allData){
     specLowToxicity, specLowVoc, specBiodegradable, specRecyclable,
     specFoodSafe, specMedicalGrade, specConductive, specUvResistant,
     // Other filters
-    flagProfessionalOnly, flagPopularMaterials,
+    flagProfessionalOnly, flagPopularMaterials, flagFromYouTube,
     // Tier filters
     ...tierChecks
   ];
@@ -1730,9 +1780,10 @@ function setupFilters(allData){
     specConductive.checked = false;
     specUvResistant.checked = false;
     
-    // Other filters - both unchecked (default)
+    // Other filters - all unchecked (default)
     flagProfessionalOnly.checked = false;
     flagPopularMaterials.checked = false;
+    flagFromYouTube.checked = false;
     
     // Clear search
     q.value = '';
